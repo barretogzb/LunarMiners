@@ -170,5 +170,14 @@
   "event.lunarminers.storm_warning": "☀ EARTH WARNING: solar storm in 30 seconds! Find shelter with a roof.",
   "event.lunarminers.storm_start": "☀ SOLAR STORM! Radiation under the open sky. Solar panels are generating 3x.",
   "event.lunarminers.storm_exposed": "Radiation! Get under a roof",
-  "event.lunarminers.storm_end": "The solar storm is over. It is safe to go out."
+  "event.lunarminers.storm_end": "The solar storm is over. It is safe to go out.",
+  "block.lunarminers.alien_resin": "Alien Resin",
+  "block.lunarminers.alien_resin_glow": "Glowing Alien Resin",
+  "block.lunarminers.alien_egg": "Alien Egg",
+  "item.lunarminers.queen_core": "Queen Core",
+  "item.lunarminers.alien_spitter_spawn_egg": "Spitter Spawn Egg",
+  "item.lunarminers.alien_queen_spawn_egg": "Queen Spawn Egg",
+  "entity.lunarminers.alien_spitter": "Alien Spitter",
+  "entity.lunarminers.alien_queen": "Alien Queen",
+  "entity.lunarminers.acid_blob": "Alien Acid"
 }

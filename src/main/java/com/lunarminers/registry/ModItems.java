@@ -79,6 +79,12 @@ public final class ModItems {
     public static final RegistryObject<Item> ORE_SCANNER = ITEMS.register("ore_scanner",
             () -> new com.lunarminers.item.ScannerItem(new Item.Properties().durability(64)));
     public static final RegistryObject<Item> METEORITE_FRAGMENT = simples("meteorite_fragment");
+    public static final RegistryObject<Item> QUEEN_CORE = ITEMS.register("queen_core",
+            () -> new Item(new Item.Properties().stacksTo(1).fireResistant().rarity(net.minecraft.world.item.Rarity.EPIC)));
+    public static final RegistryObject<Item> ALIEN_SPITTER_SPAWN_EGG = ITEMS.register("alien_spitter_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.ALIEN_SPITTER, 0xC7D25A, 0x5A2A6E, new Item.Properties()));
+    public static final RegistryObject<Item> ALIEN_QUEEN_SPAWN_EGG = ITEMS.register("alien_queen_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.ALIEN_QUEEN, 0x3A1A4E, 0xB040E0, new Item.Properties()));
 
     // ---------- Veículos, comida e cama ----------
     public static final RegistryObject<Item> ROVER_KIT = ITEMS.register("rover_kit",

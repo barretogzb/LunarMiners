@@ -17,6 +17,9 @@ public final class ClientEvents {
         event.registerEntityRenderer(ModEntities.ALIEN.get(), AlienRenderer::new);
         event.registerEntityRenderer(ModEntities.ROVER.get(), RoverRenderer::new);
         event.registerEntityRenderer(ModEntities.IMPACT.get(), ImpactRenderer::new);
+        event.registerEntityRenderer(ModEntities.ALIEN_SPITTER.get(), AlienExtraRenderers.Spitter::new);
+        event.registerEntityRenderer(ModEntities.ALIEN_QUEEN.get(), AlienExtraRenderers.Queen::new);
+        event.registerEntityRenderer(ModEntities.ACID_BLOB.get(), net.minecraft.client.renderer.entity.ThrownItemRenderer::new);
     }
 
     @SubscribeEvent

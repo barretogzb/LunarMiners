@@ -17,11 +17,16 @@ public final class ModBusEvents {
     @SubscribeEvent
     public static void onAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.ALIEN.get(), AlienEntity.createAlienAttributes().build());
+        event.put(ModEntities.ALIEN_SPITTER.get(), com.lunarminers.entity.AlienSpitterEntity.createAttributes().build());
+        event.put(ModEntities.ALIEN_QUEEN.get(), com.lunarminers.entity.AlienQueenEntity.createQueenAttributes().build());
     }
 
     @SubscribeEvent
     public static void onSpawnPlacements(SpawnPlacementRegisterEvent event) {
         event.register(ModEntities.ALIEN.get(), SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules,
+                SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.ALIEN_SPITTER.get(), SpawnPlacements.Type.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.REPLACE);
     }

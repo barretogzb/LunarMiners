@@ -21,5 +21,11 @@ public final class ModStructures {
     public static final RegistryObject<StructurePieceType> OUTPOST_PIECE =
             PIECES.register("abandoned_outpost", () -> (StructurePieceType.ContextlessType) OutpostPiece::new);
 
+    public static final RegistryObject<StructureType<com.lunarminers.world.HiveStructure>> HIVE =
+            TYPES.register("alien_hive", () -> () -> com.lunarminers.world.HiveStructure.CODEC);
+
+    public static final RegistryObject<StructurePieceType> HIVE_PIECE =
+            PIECES.register("alien_hive", () -> (StructurePieceType.ContextlessType) com.lunarminers.world.HivePiece::new);
+
     private ModStructures() {}
 }

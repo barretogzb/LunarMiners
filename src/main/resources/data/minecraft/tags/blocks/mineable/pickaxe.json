@@ -40,6 +40,8 @@
     "lunarminers:airlock_door",
     "lunarminers:solar_array",
     "lunarminers:comms_tower",
-    "lunarminers:meteorite_ore"
+    "lunarminers:meteorite_ore",
+    "lunarminers:alien_resin",
+    "lunarminers:alien_resin_glow"
   ]
 }

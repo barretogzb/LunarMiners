@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "lunarminers:alien_hive",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 99120577,
+    "spacing": 48,
+    "separation": 28
+  }
+}

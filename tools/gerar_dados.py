@@ -807,6 +807,90 @@ def dados_06():
     w(f"{A}/lang/en_us.json", en)
 
 
+# ---------------- 0.7: ameaça alienígena ----------------
+
+def dados_07():
+    for b in ["alien_resin", "alien_resin_glow"]:
+        cubo(b)
+        estado_simples(b)
+        item_bloco(b)
+        w(f"{D}/loot_tables/blocks/{b}.json", saque_proprio(b))
+    el = cilindro(4, 0, 2, "#shell", "#shell") + cilindro(5, 2, 9, "#shell", "#shell") + cilindro(4, 9, 12, "#shell", "#top") \
+         + cilindro(2.5, 12, 14, "#shell", "#top")
+    modelo("alien_egg", {"shell": "alien_egg", "top": "alien_egg_top"}, el, particula="shell")
+    estado_simples("alien_egg")
+    item_bloco("alien_egg")
+    w(f"{D}/loot_tables/blocks/alien_egg.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "bonus_rolls": 0,
+        "entries": [{"type": "minecraft:item", "name": M + "alien_goo", "functions": [
+            {"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]}]}]})
+    item_plano("queen_core")
+    for ovo in ["alien_spitter_spawn_egg", "alien_queen_spawn_egg"]:
+        w(f"{A}/models/item/{ovo}.json", {"parent": "minecraft:item/template_spawn_egg"})
+
+    w(f"{D}/loot_tables/entities/alien_spitter.json", {"type": "minecraft:entity", "pools": [{"rolls": 1, "bonus_rolls": 0,
+        "entries": [{"type": "minecraft:item", "name": M + "alien_goo", "functions": [
+            {"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}},
+            {"function": "minecraft:looting_enchant", "count": {"type": "minecraft:uniform", "min": 0, "max": 1}}]}]}]})
+    w(f"{D}/loot_tables/entities/alien_queen.json", {"type": "minecraft:entity", "pools": [
+        {"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": M + "queen_core"}]},
+        {"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": M + "alien_goo", "functions": [
+            {"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 8, "max": 16}}]}]},
+        {"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": M + "helium3_crystal", "functions": [
+            {"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 3, "max": 6}}]}]}]})
+    w(f"{D}/loot_tables/chests/hive.json", {"type": "minecraft:chest", "pools": [
+        {"rolls": {"type": "minecraft:uniform", "min": 4, "max": 7}, "bonus_rolls": 0, "entries": [
+            {"type": "minecraft:item", "name": M + "titanium_ingot", "weight": 10, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 3, "max": 8}}]},
+            {"type": "minecraft:item", "name": M + "helium3_crystal", "weight": 8, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 4}}]},
+            {"type": "minecraft:item", "name": M + "meteorite_fragment", "weight": 8, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]},
+            {"type": "minecraft:item", "name": M + "titanium_suit_helmet", "weight": 2},
+            {"type": "minecraft:item", "name": M + "titanium_sword", "weight": 3},
+            {"type": "minecraft:item", "name": M + "jetpack_module", "weight": 2},
+            {"type": "minecraft:item", "name": M + "thruster_module", "weight": 2},
+            {"type": "minecraft:item", "name": M + "space_ration", "weight": 10, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 2, "max": 6}}]},
+            {"type": "minecraft:item", "name": "minecraft:diamond", "weight": 4, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]}]}]})
+
+    w(f"{RES}/data/lunarminers/tags/worldgen/biome/has_hive.json", {"replace": False, "values": [
+        M + "lunar_highlands", M + "lunar_maria", M + "crater_fields"]})
+    w(f"{D}/worldgen/structure/alien_hive.json", {"type": M + "alien_hive", "biomes": "#" + M + "has_hive",
+        "step": "underground_structures", "spawn_overrides": {}, "terrain_adaptation": "beard_box"})
+    w(f"{D}/worldgen/structure_set/alien_hives.json", {"structures": [{"structure": M + "alien_hive", "weight": 1}],
+        "placement": {"type": "minecraft:random_spread", "salt": 99120577, "spacing": 48, "separation": 28}})
+
+    for b in ["lunar_highlands", "lunar_maria", "crater_fields"]:
+        p = f"{D}/worldgen/biome/{b}.json"
+        d = ler(p)
+        mons = d["spawners"]["monster"]
+        if not any(m["type"] == M + "alien_spitter" for m in mons):
+            mons.append({"type": M + "alien_spitter", "weight": 40, "minCount": 1, "maxCount": 2})
+        w(p, d)
+
+    t = f"{RES}/data/minecraft/tags/blocks/mineable/pickaxe.json"
+    d = ler(t)
+    for b in ["alien_resin", "alien_resin_glow"]:
+        if M + b not in d["values"]:
+            d["values"].append(M + b)
+    w(t, d)
+
+    pt = ler(f"{A}/lang/pt_br.json")
+    en = ler(f"{A}/lang/en_us.json")
+    novos = {
+        "block.lunarminers.alien_resin": ("Resina Alienígena", "Alien Resin"),
+        "block.lunarminers.alien_resin_glow": ("Resina Alienígena Brilhante", "Glowing Alien Resin"),
+        "block.lunarminers.alien_egg": ("Ovo Alienígena", "Alien Egg"),
+        "item.lunarminers.queen_core": ("Núcleo da Rainha", "Queen Core"),
+        "item.lunarminers.alien_spitter_spawn_egg": ("Ovo Gerador de Cuspidor", "Spitter Spawn Egg"),
+        "item.lunarminers.alien_queen_spawn_egg": ("Ovo Gerador da Rainha", "Queen Spawn Egg"),
+        "entity.lunarminers.alien_spitter": ("Alienígena Cuspidor", "Alien Spitter"),
+        "entity.lunarminers.alien_queen": ("Rainha Alienígena", "Alien Queen"),
+        "entity.lunarminers.acid_blob": ("Ácido Alienígena", "Alien Acid"),
+    }
+    for k, (a_, b_) in novos.items():
+        pt[k] = a_
+        en[k] = b_
+    w(f"{A}/lang/pt_br.json", pt)
+    w(f"{A}/lang/en_us.json", en)
+
+
 if __name__ == "__main__":
     modelos()
     saques()
@@ -816,4 +900,5 @@ if __name__ == "__main__":
     nomes()
     dados_05()
     dados_06()
+    dados_07()
     print("dados gerados")

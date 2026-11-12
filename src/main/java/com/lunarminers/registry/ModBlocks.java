@@ -103,6 +103,14 @@ public final class ModBlocks {
     public static final RegistryObject<Block> METEORITE_ORE = register("meteorite_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.ANCIENT_DEBRIS).requiresCorrectToolForDrops()
                     .lightLevel(s -> 5), UniformInt.of(4, 9)));
+    public static final RegistryObject<Block> ALIEN_RESIN = register("alien_resin",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).strength(2.0F, 4.0F).sound(SoundType.SLIME_BLOCK)));
+    public static final RegistryObject<Block> ALIEN_RESIN_GLOW = register("alien_resin_glow",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MUD_BRICKS).strength(2.0F, 4.0F).sound(SoundType.SLIME_BLOCK)
+                    .lightLevel(s -> 9)));
+    public static final RegistryObject<Block> ALIEN_EGG = register("alien_egg",
+            () -> new com.lunarminers.block.AlienEggBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).strength(0.8F)
+                    .noOcclusion().lightLevel(s -> 4), Block.box(3, 0, 3, 13, 14, 13)));
     public static final RegistryObject<Block> CABLE = register("cable",
             () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS).strength(0.6F).noOcclusion()));
     public static final RegistryObject<Block> BATTERY = register("battery",

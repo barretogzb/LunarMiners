@@ -1,0 +1,7 @@
+{
+  "type": "lunarminers:alien_hive",
+  "biomes": "#lunarminers:has_hive",
+  "step": "underground_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_box"
+}

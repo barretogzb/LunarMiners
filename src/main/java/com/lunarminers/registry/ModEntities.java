@@ -32,5 +32,17 @@ public final class ModEntities {
                     .updateInterval(2)
                     .build("impact"));
 
+    public static final RegistryObject<EntityType<com.lunarminers.entity.AlienSpitterEntity>> ALIEN_SPITTER = ENTITIES.register("alien_spitter",
+            () -> EntityType.Builder.<com.lunarminers.entity.AlienSpitterEntity>of(com.lunarminers.entity.AlienSpitterEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).clientTrackingRange(8).build("alien_spitter"));
+
+    public static final RegistryObject<EntityType<com.lunarminers.entity.AlienQueenEntity>> ALIEN_QUEEN = ENTITIES.register("alien_queen",
+            () -> EntityType.Builder.<com.lunarminers.entity.AlienQueenEntity>of(com.lunarminers.entity.AlienQueenEntity::new, MobCategory.MONSTER)
+                    .sized(1.5F, 5.0F).clientTrackingRange(12).fireImmune().build("alien_queen"));
+
+    public static final RegistryObject<EntityType<com.lunarminers.entity.AcidBlobEntity>> ACID_BLOB = ENTITIES.register("acid_blob",
+            () -> EntityType.Builder.<com.lunarminers.entity.AcidBlobEntity>of(com.lunarminers.entity.AcidBlobEntity::new, MobCategory.MISC)
+                    .sized(0.4F, 0.4F).clientTrackingRange(6).updateInterval(10).build("acid_blob"));
+
     private ModEntities() {}
 }

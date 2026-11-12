@@ -170,5 +170,14 @@
   "event.lunarminers.storm_warning": "☀ AVISO DA TERRA: tempestade solar em 30 segundos! Procure abrigo com teto.",
   "event.lunarminers.storm_start": "☀ TEMPESTADE SOLAR! Radiação a céu aberto. Os painéis solares estão gerando 3x.",
   "event.lunarminers.storm_exposed": "Radiação! Procure abrigo com teto",
-  "event.lunarminers.storm_end": "A tempestade solar terminou. É seguro sair."
+  "event.lunarminers.storm_end": "A tempestade solar terminou. É seguro sair.",
+  "block.lunarminers.alien_resin": "Resina Alienígena",
+  "block.lunarminers.alien_resin_glow": "Resina Alienígena Brilhante",
+  "block.lunarminers.alien_egg": "Ovo Alienígena",
+  "item.lunarminers.queen_core": "Núcleo da Rainha",
+  "item.lunarminers.alien_spitter_spawn_egg": "Ovo Gerador de Cuspidor",
+  "item.lunarminers.alien_queen_spawn_egg": "Ovo Gerador da Rainha",
+  "entity.lunarminers.alien_spitter": "Alienígena Cuspidor",
+  "entity.lunarminers.alien_queen": "Rainha Alienígena",
+  "entity.lunarminers.acid_blob": "Ácido Alienígena"
 }
