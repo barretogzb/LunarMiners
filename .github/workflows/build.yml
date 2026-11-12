@@ -41,6 +41,17 @@ jobs:
           echo "VER=$VER" >> "$GITHUB_ENV"
           unzip -l LunarMiners-modpack.zip
 
+      - name: Publicar link direto para o Technic (branch modpack)
+        run: |
+          mkdir -p /tmp/direto && cp LunarMiners-modpack.zip /tmp/direto/
+          cd /tmp/direto
+          git init -q -b modpack
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add LunarMiners-modpack.zip
+          git commit -qm "Modpack ${{ env.VER }} build ${{ github.run_number }}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" modpack
+
       - name: Publicar release
         uses: softprops/action-gh-release@v2
         with:
@@ -48,7 +59,7 @@ jobs:
           name: LunarMiners ${{ env.VER }} (build ${{ github.run_number }})
           body: |
             Versão para colocar no Technic: **${{ env.VER }}.${{ github.run_number }}**
-            Link fixo do modpack: https://github.com/${{ github.repository }}/releases/latest/download/LunarMiners-modpack.zip
+            Link fixo do modpack: https://raw.githubusercontent.com/${{ github.repository }}/modpack/LunarMiners-modpack.zip
           make_latest: true
           files: |
             LunarMiners-modpack.zip

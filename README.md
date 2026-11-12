@@ -12,7 +12,7 @@ criação de vida, máquinas, veículos, armaduras, alienígenas e, no fim, a vo
 ## Como cada atualização chega no Technic
 1. Cada envio para a `main` dispara o GitHub Actions, que compila o mod e monta o modpack.
 2. O pacote sai sempre no mesmo link:
-   `https://github.com/barretogzb/lunarminers/releases/latest/download/LunarMiners-modpack.zip`
+   `https://raw.githubusercontent.com/barretogzb/LunarMiners/modpack/LunarMiners-modpack.zip`
 3. No technicpack.net: **Edit Modpack → Versions**, coloque o número de versão que aparece na release
    (ex.: `0.1.0.1`) e clique em **Update Version**.
 4. Reabra o Technic Launcher para ele baixar a versão nova.
