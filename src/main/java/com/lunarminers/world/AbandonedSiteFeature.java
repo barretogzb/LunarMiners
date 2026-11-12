@@ -107,7 +107,7 @@ public class AbandonedSiteFeature extends Feature<NoneFeatureConfiguration> {
         // pegadas de regolito escuro e um marco de pedra
         BlockPos marco = b.offset(2, 0, 1);
         apoiar(level, marco, rocha);
-        level.setBlock(marco, Blocks.POLISHED_ANDESITE_WALL.defaultBlockState(), 2);
+        level.setBlock(marco, Blocks.ANDESITE_WALL.defaultBlockState(), 2);
         level.setBlock(marco.above(), Blocks.LANTERN.defaultBlockState(), 2);
         BlockState pegada = com.lunarminers.registry.ModBlocks.MOON_MARE_REGOLITH.get().defaultBlockState();
         for (int i = 1; i <= 6; i++) {
