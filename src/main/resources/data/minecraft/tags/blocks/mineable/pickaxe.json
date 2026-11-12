@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lunarminers:niobium_ore",
+    "lunarminers:deepslate_niobium_ore",
+    "lunarminers:niobium_block"
+  ]
+}
