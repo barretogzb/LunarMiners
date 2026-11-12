@@ -420,25 +420,7 @@ def main():
             rel = os.path.relpath(os.path.join(raiz, nome), os.path.join(van, T))
             salvar(recolorir(Image.open(os.path.join(raiz, nome))), T, rel)
 
-    B = "textures/block"
-    salvar(bloco_ferro(), B, "iron_block.png")
-    salvar(vidro(), B, "glass.png")
-    salvar(porta(True), B, "oak_door_top.png")
-    salvar(porta(False), B, "oak_door_bottom.png")
-    salvar(porta_item(), "textures/item", "oak_door.png")
-    salvar(tocha(), B, "torch.png")
-    salvar(lampada_led(), B, "sea_lantern.png")
-    for face in ["top", "front", "side"]:
-        salvar(bancada(face), B, f"crafting_table_{face}.png")
-    salvar(fornalha("front"), B, "furnace_front.png")
-    salvar(fornalha("front", acesa=True), B, "furnace_front_on.png")
-    salvar(fornalha("side"), B, "furnace_side.png")
-    salvar(fornalha("top"), B, "furnace_top.png")
-    salvar(fornalha("front", alto=True), B, "blast_furnace_front.png")
-    salvar(fornalha("front", acesa=True, alto=True), B, "blast_furnace_front_on.png")
-    salvar(fornalha("side", alto=True), B, "blast_furnace_side.png")
-    salvar(fornalha("top", alto=True), B, "blast_furnace_top.png")
-    salvar(bau(Image.open(os.path.join(van, "textures/entity/chest/normal.png"))), "textures/entity/chest", "normal.png")
+    # (os blocos comuns não são mais retexturizados: o mod tem blocos próprios)
     print("visual gerado")
 
 

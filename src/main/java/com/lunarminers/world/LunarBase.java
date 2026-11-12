@@ -1,7 +1,11 @@
 package com.lunarminers.world;
 
 import com.lunarminers.LunarMiners;
+import com.lunarminers.blockentity.ElectrolyzerBlockEntity;
+import com.lunarminers.blockentity.OxygenTankBlockEntity;
 import com.lunarminers.blockentity.SupplyCrateBlockEntity;
+import com.lunarminers.entity.RoverEntity;
+import com.lunarminers.registry.ModEntities;
 import com.lunarminers.registry.ModBlocks;
 import com.lunarminers.registry.ModItems;
 import java.util.List;
@@ -127,18 +131,73 @@ public final class LunarBase {
         }
         b.tanque(tanques, 4);
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
-                b.set(c.offset(16 + i * 2, 0, 15 + j * 2), ModBlocks.SOLAR_PANEL.get().defaultBlockState());
-            }
-        }
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 3; j++) {
-                b.set(c.offset(-22 + i * 2, 0, 15 + j * 2), ModBlocks.SOLAR_PANEL.get().defaultBlockState());
+        redeEletrica(b, c);
+
+        Bandeiras.BRASIL.fincar(b.colocador(), c.offset(-5, 0, R_CENTRAL + 12), Direction.SOUTH, 8);
+
+        // 6) encher os tanques e carregar as baterias para o primeiro dia
+        for (BlockPos t : OxygenData.get(level).tanques()) {
+            if (t.closerThan(c, 60) && level.getBlockEntity(t) instanceof OxygenTankBlockEntity tanque) {
+                tanque.encher();
             }
         }
 
-        Bandeiras.BRASIL.fincar(b.colocador(), c.offset(-5, 0, R_CENTRAL + 12), Direction.SOUTH, 8);
+        // 7) um rover estacionado do lado de fora da eclusa
+        RoverEntity rover = ModEntities.ROVER.get().create(level);
+        if (rover != null) {
+            rover.moveTo(c.getX() + 6.5, c.getY(), c.getZ() + R_CENTRAL + 13.5, 180.0F, 0);
+            level.addFreshEntity(rover);
+        }
+    }
+
+    /**
+     * Rede elétrica: dois campos solares, troncos de cabo enterrados (y-2) ligando tudo,
+     * banco de baterias na cúpula central, gerador de hélio-3 e eletrolisador na oficina.
+     */
+    private static void redeEletrica(Construtor b, BlockPos c) {
+        BlockState cabo = ModBlocks.CABLE.get().defaultBlockState();
+        BlockState painel = ModBlocks.SOLAR_PANEL.get().defaultBlockState();
+        // campos solares 6x3 com cabos por baixo
+        for (int lado : new int[]{1, -1}) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 3; j++) {
+                    int x = lado > 0 ? 15 + i : -20 + i;
+                    b.set(c.offset(x, -1, 15 + j), cabo);
+                    b.set(c.offset(x, 0, 15 + j), painel);
+                }
+            }
+        }
+        // troncos enterrados
+        for (int x = -30; x <= 30; x++) {
+            b.set(c.offset(x, -2, 0), cabo);
+        }
+        for (int z = -27; z <= 0; z++) {
+            b.set(c.offset(0, -2, z), cabo);
+        }
+        for (int z = 0; z <= 15; z++) {
+            b.set(c.offset(17, -2, z), cabo);
+            b.set(c.offset(-17, -2, z), cabo);
+        }
+        // banco de baterias na cúpula central
+        for (int dz = -1; dz <= 1; dz++) {
+            b.set(c.offset(-9, -1, dz), cabo);
+            b.set(c.offset(-9, 0, dz), ModBlocks.BATTERY.get().defaultBlockState());
+            if (b.level.getBlockEntity(c.offset(-9, 0, dz)) instanceof com.lunarminers.energy.BatteryBlockEntity bat) {
+                bat.energia().definir(com.lunarminers.energy.BatteryBlockEntity.CAPACIDADE);
+            }
+        }
+        // ligações verticais dos aparelhos (cabo logo abaixo de cada um)
+        for (BlockPos p : new BlockPos[]{c.offset(0, 0, -6), c.offset(DIST_SATELITE, 0, 0), c.offset(-DIST_SATELITE, 0, 0),
+                c.offset(0, 0, -DIST_SATELITE), c.offset(-DIST_SATELITE + 3, 0, 0), c.offset(-DIST_SATELITE - 3, 0, 0)}) {
+            b.set(p.below(), cabo);
+        }
+        // oficina: eletrolisador e gerador de hélio-3 em cima do tronco
+        b.set(c.offset(-DIST_SATELITE + 3, 0, 0), ModBlocks.ELECTROLYZER.get().defaultBlockState());
+        b.set(c.offset(-DIST_SATELITE - 3, 0, 0), ModBlocks.HE3_GENERATOR.get().defaultBlockState()
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
+        if (b.level.getBlockEntity(c.offset(-DIST_SATELITE + 3, 0, 0)) instanceof ElectrolyzerBlockEntity e) {
+            e.adicionarGelo(32);
+        }
     }
 
     private static boolean dentroDe(BlockPos p, BlockPos centro, int raio) {
@@ -149,7 +208,7 @@ public final class LunarBase {
     }
 
     private static void porta(Construtor b, BlockPos p) {
-        BlockState baixo = Blocks.OAK_DOOR.defaultBlockState()
+        BlockState baixo = ModBlocks.AIRLOCK_DOOR.get().defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
                 .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
         b.set(p, baixo);
@@ -231,15 +290,17 @@ public final class LunarBase {
                     .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST));
         }
         conteiner(b, o.offset(2, 0, -5), List.of(new ItemStack(ModItems.ALUMINUM_INGOT.get(), 24),
-                new ItemStack(ModItems.ALUMINUM_ROD.get(), 12), new ItemStack(Items.COAL, 16)));
-        conteiner(b, o.offset(2, 0, 5), List.of());
+                new ItemStack(ModItems.ALUMINUM_ROD.get(), 12), new ItemStack(Items.COAL, 16),
+                new ItemStack(ModItems.ICE_SHARD.get(), 32), new ItemStack(ModItems.HELIUM3_CRYSTAL.get(), 4)));
+        conteiner(b, o.offset(2, 0, 5), List.of(new ItemStack(ModBlocks.CABLE.get(), 32),
+                new ItemStack(ModBlocks.SOLAR_PANEL.get(), 4), new ItemStack(ModItems.ROVER_KIT.get())));
         conteiner(b, o.offset(4, 0, -3), List.of());
     }
 
     private static void mobiliarDormitorio(Construtor b, BlockPos n) {
         distribuidor(b, n);
         b.set(n.offset(0, R_SATELITE - 1, 0), ModBlocks.CEILING_LAMP.get().defaultBlockState());
-        BlockState cama = Blocks.GREEN_BED.defaultBlockState();
+        BlockState cama = ModBlocks.SLEEPING_POD.get().defaultBlockState();
         int[][] camas = {{-4, -3, 0}, {-2, -5, 0}, {2, -5, 0}, {4, -3, 0}};
         for (int[] k : camas) {
             BlockState s = cama.setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
@@ -263,7 +324,9 @@ public final class LunarBase {
                 new ItemStack(ModItems.ALUMINUM_SWORD.get()),
                 new ItemStack(ModItems.ALUMINUM_AXE.get()),
                 new ItemStack(Items.BREAD, 16),
-                new ItemStack(Items.TORCH, 32),
+                new ItemStack(ModBlocks.LIGHT_STICK.get(), 32),
+                new ItemStack(ModItems.SPACE_RATION.get(), 8),
+                new ItemStack(ModItems.ICE_SHARD.get(), 16),
                 new ItemStack(Items.WHEAT_SEEDS, 16),
                 new ItemStack(Items.BONE_MEAL, 16),
                 new ItemStack(Items.OAK_SAPLING, 4),

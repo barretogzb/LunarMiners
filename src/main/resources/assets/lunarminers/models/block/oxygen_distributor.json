@@ -3,7 +3,7 @@
   "textures": {
     "metal": "lunarminers:block/furniture_metal",
     "side": "lunarminers:block/distributor_side",
-    "glow": "lunarminers:block/lamp_glow",
+    "glow": "lunarminers:block/lamp_off",
     "top": "lunarminers:block/distributor_top",
     "particle": "lunarminers:block/distributor_side"
   },

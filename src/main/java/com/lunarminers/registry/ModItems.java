@@ -5,7 +5,10 @@ import com.lunarminers.item.FlagKitItem;
 import com.lunarminers.item.ModArmorMaterials;
 import com.lunarminers.item.ModTiers;
 import com.lunarminers.item.ModuleItem;
+import com.lunarminers.item.RoverKitItem;
 import com.lunarminers.item.SuitArmorItem;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BedItem;
 import com.lunarminers.world.Bandeiras;
 import java.util.function.Supplier;
 import net.minecraft.world.item.ArmorItem;
@@ -70,6 +73,14 @@ public final class ModItems {
     public static final RegistryObject<Item> NIGHT_VISION_MODULE = modulo(ModuleItem.Tipo.VISOR);
     public static final RegistryObject<Item> SERVO_MODULE = modulo(ModuleItem.Tipo.SERVO);
     public static final RegistryObject<Item> THRUSTER_MODULE = modulo(ModuleItem.Tipo.PROPULSOR);
+
+    // ---------- Veículos, comida e cama ----------
+    public static final RegistryObject<Item> ROVER_KIT = ITEMS.register("rover_kit",
+            () -> new RoverKitItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> SPACE_RATION = ITEMS.register("space_ration",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(0.9F).build())));
+    public static final RegistryObject<Item> SLEEPING_POD = ITEMS.register("sleeping_pod",
+            () -> new BedItem(ModBlocks.SLEEPING_POD.get(), new Item.Properties().stacksTo(1)));
 
     // ---------- Outros ----------
     public static final RegistryObject<Item> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg",

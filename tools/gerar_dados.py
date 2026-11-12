@@ -474,6 +474,215 @@ def nomes():
     w(f"{A}/lang/en_us.json", en)
 
 
+# ---------------- 0.5: energia, oxigênio, eclusa, cápsula, rover ----------------
+
+def dados_05():
+    # cabo: miolo + braços (multipart)
+    modelo("cable_core", {"c": "cable"}, [caixa([5.5, 5.5, 5.5], [10.5, 10.5, 10.5], "#c")])
+    modelo("cable_arm", {"c": "cable"}, [caixa([6, 6, 0], [10, 10, 5.5], "#c")])
+    rot = {"north": {}, "south": {"y": 180}, "east": {"y": 90}, "west": {"y": 270}, "up": {"x": 270}, "down": {"x": 90}}
+    partes = [{"apply": {"model": M + "block/cable_core"}}]
+    for d, r in rot.items():
+        ap = {"model": M + "block/cable_arm", "uvlock": False}
+        ap.update(r)
+        partes.append({"when": {d: "true"}, "apply": ap})
+    w(f"{A}/blockstates/cable.json", {"multipart": partes})
+    w(f"{A}/models/item/cable.json", {"parent": "minecraft:block/block", "textures": {"c": M + "block/cable", "particle": M + "block/cable"},
+        "elements": [caixa([0, 5.5, 5.5], [16, 10.5, 10.5], "#c")], "display": {"gui": {"rotation": [30, 45, 0], "scale": [0.8, 0.8, 0.8]}}})
+
+    # bateria: 5 níveis de carga (faixa luminosa sobe)
+    variantes = {}
+    for n in range(5):
+        el = [caixa([1, 0, 1], [15, 2, 15], "#metal"), caixa([2, 2, 2], [14, 14, 14], "#side", "#top"),
+              caixa([1, 14, 1], [15, 15, 15], "#metal")]
+        if n > 0:
+            el.append(caixa([1.5, 3, 1.5], [14.5, 3 + 2.5 * n, 14.5], "#glow"))
+        modelo(f"battery_{n}", {"metal": "furniture_metal", "side": "battery_side", "top": "battery_top", "glow": "battery_glow"},
+               el, render="translucent", particula="side")
+        variantes[f"charge={n}"] = {"model": M + f"block/battery_{n}"}
+    w(f"{A}/blockstates/battery.json", {"variants": variantes})
+    item_bloco("battery", "battery_4")
+
+    # gerador de hélio-3 (reator com núcleo brilhante)
+    for aceso in (False, True):
+        el = cilindro(7, 0, 2, "#metal") + cilindro(5, 2, 13, "#side", "#metal") + cilindro(3, 4, 11, "#core") \
+             + cilindro(6.5, 13, 15, "#metal", "#top")
+        el.append({"from": [5, 3, 1.5], "to": [11, 10, 3], "faces": {"north": {"texture": "#front"}, "east": {"texture": "#metal"},
+                   "west": {"texture": "#metal"}, "up": {"texture": "#metal"}, "down": {"texture": "#metal"}}})
+        nome = "he3_generator_on" if aceso else "he3_generator"
+        modelo(nome, {"metal": "furniture_metal", "side": "he3_side", "core": "he3_core_on" if aceso else "he3_core",
+                      "top": "distributor_top", "front": "he3_front_on" if aceso else "he3_front"}, el, render="translucent",
+               particula="side")
+    variantes = {}
+    for f, r in ROT_Y.items():
+        for aceso in ("false", "true"):
+            v = {"model": M + "block/" + ("he3_generator_on" if aceso == "true" else "he3_generator")}
+            if r:
+                v["y"] = r
+            variantes[f"facing={f},lit={aceso}"] = v
+    w(f"{A}/blockstates/he3_generator.json", {"variants": variantes})
+    item_bloco("he3_generator")
+
+    # eletrolisador (cilindro com bolhas) e distribuidor aceso/apagado
+    for aceso in (False, True):
+        el = cilindro(6, 0, 2, "#metal") + cilindro(5, 2, 13, "#glass") + cilindro(3, 2, 12, "#water") \
+             + cilindro(6, 13, 15, "#metal", "#top") + [caixa([7, 15, 7], [9, 16, 9], "#metal")]
+        modelo("electrolyzer_on" if aceso else "electrolyzer",
+               {"metal": "furniture_metal", "glass": "habitat_glass", "water": "electrolyzer_water_on" if aceso else "electrolyzer_water",
+                "top": "distributor_top"}, el, render="translucent", particula="metal")
+        w(f"{A}/blockstates/electrolyzer.json", {"variants": {"lit=false": {"model": M + "block/electrolyzer"},
+                                                               "lit=true": {"model": M + "block/electrolyzer_on"}}})
+        el = cilindro(5, 0, 2, "#metal") + cilindro(4, 2, 10, "#side", "#metal") + cilindro(4.5, 5, 6.5, "#glow") \
+             + cilindro(5.5, 10, 13, "#metal", "#top")
+        modelo("oxygen_distributor_on" if aceso else "oxygen_distributor",
+               {"metal": "furniture_metal", "side": "distributor_side", "glow": "lamp_glow" if aceso else "lamp_off",
+                "top": "distributor_top"}, el, particula="side")
+    w(f"{A}/blockstates/oxygen_distributor.json", {"variants": {"lit=false": {"model": M + "block/oxygen_distributor"},
+                                                                 "lit=true": {"model": M + "block/oxygen_distributor_on"}}})
+    item_bloco("electrolyzer")
+    item_bloco("oxygen_distributor", "oxygen_distributor_on")
+
+    # porta de eclusa: painel grosso de 2 blocos; aberta = só o batente
+    porta_tex = {"door": "airlock_door_bottom", "top": "airlock_door_top", "frame": "furniture_metal", "warn": "airlock_warning"}
+    modelo("airlock_door_bottom", porta_tex, [
+        {"from": [0, 0, 6], "to": [16, 16, 10], "faces": {"north": {"texture": "#door"}, "south": {"texture": "#door"},
+         "east": {"texture": "#frame"}, "west": {"texture": "#frame"}, "up": {"texture": "#frame"}, "down": {"texture": "#frame"}}}])
+    modelo("airlock_door_top", porta_tex, [
+        {"from": [0, 0, 6], "to": [16, 16, 10], "faces": {"north": {"texture": "#top"}, "south": {"texture": "#top"},
+         "east": {"texture": "#frame"}, "west": {"texture": "#frame"}, "up": {"texture": "#frame"}, "down": {"texture": "#frame"}}}])
+    batente = [caixa([0, 0, 6], [2, 16, 10], "#warn"), caixa([14, 0, 6], [16, 16, 10], "#warn")]
+    modelo("airlock_door_open_bottom", porta_tex, batente)
+    modelo("airlock_door_open_top", porta_tex, batente + [caixa([2, 14, 6], [14, 16, 10], "#frame")])
+    variantes = {}
+    for f, r in ROT_Y.items():
+        for metade in ("lower", "upper"):
+            for aberta in ("false", "true"):
+                for ciclo in ("false", "true"):
+                    base = "airlock_door_open_" if aberta == "true" else "airlock_door_"
+                    v = {"model": M + "block/" + base + ("bottom" if metade == "lower" else "top")}
+                    if r:
+                        v["y"] = r
+                    variantes[f"cycling={ciclo},facing={f},half={metade},open={aberta}"] = v
+    w(f"{A}/blockstates/airlock_door.json", {"variants": variantes})
+    item_plano("airlock_door")
+
+    # cápsula de dormir (2 partes)
+    cab = [caixa([1, 0, 1], [15, 3, 16], "#base", "#base"), caixa([2, 3, 2], [14, 7, 16], "#mattress", "#mattress"),
+           caixa([1.5, 3, 1], [14.5, 11, 4], "#shell", "#shell"), caixa([2, 7, 4], [14, 10.5, 16], "#glass", "#glass")]
+    pe = [caixa([1, 0, 0], [15, 3, 15], "#base", "#base"), caixa([2, 3, 0], [14, 7, 14], "#mattress", "#mattress"),
+          caixa([1.5, 3, 12], [14.5, 9, 15], "#shell", "#shell"), caixa([2, 7, 0], [14, 9.5, 12], "#glass", "#glass")]
+    tex_cap = {"base": "furniture_metal", "mattress": "seat", "shell": "habitat_wall", "glass": "habitat_glass"}
+    modelo("sleeping_pod_head", tex_cap, cab, render="translucent", particula="shell")
+    modelo("sleeping_pod_foot", tex_cap, pe, render="translucent", particula="shell")
+    variantes = {}
+    # a cabeça fica do lado para onde a cama "aponta": no modelo, a cabeceira é o lado norte (z=0)
+    rot_cama = {"north": 0, "east": 90, "south": 180, "west": 270}
+    for f, r in rot_cama.items():
+        for parte in ("head", "foot"):
+            for ocupada in ("false", "true"):
+                v = {"model": M + f"block/sleeping_pod_{parte}"}
+                if r:
+                    v["y"] = r
+                variantes[f"facing={f},occupied={ocupada},part={parte}"] = v
+    w(f"{A}/blockstates/sleeping_pod.json", {"variants": variantes})
+    item_plano("sleeping_pod")
+
+    # bastão de luz
+    modelo("light_stick", {"stick": "furniture_metal", "glow": "lamp_glow"},
+           [caixa([7, 0, 7], [9, 7, 9], "#stick"), caixa([6.5, 7, 6.5], [9.5, 11, 9.5], "#glow")])
+    estado_simples("light_stick")
+    item_plano("light_stick")
+
+    # tanque: a válvula agora tem estado próprio simples
+    estado_simples("oxygen_tank_cap")
+
+    # itens
+    item_plano("rover_kit")
+    item_plano("space_ration")
+
+    # saques
+    for b in ["cable", "battery", "he3_generator", "electrolyzer", "light_stick"]:
+        w(f"{D}/loot_tables/blocks/{b}.json", saque_proprio(b))
+    w(f"{D}/loot_tables/blocks/airlock_door.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "bonus_rolls": 0,
+        "entries": [{"type": "minecraft:item", "name": M + "airlock_door", "conditions": [{"condition": "minecraft:block_state_property",
+            "block": M + "airlock_door", "properties": {"half": "lower"}}]}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+    w(f"{D}/loot_tables/blocks/sleeping_pod.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "bonus_rolls": 0,
+        "entries": [{"type": "minecraft:item", "name": M + "sleeping_pod", "conditions": [{"condition": "minecraft:block_state_property",
+            "block": M + "sleeping_pod", "properties": {"part": "head"}}]}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+
+    # tags
+    t = f"{RES}/data/minecraft/tags/blocks/mineable/pickaxe.json"
+    d = ler(t)
+    for b in ["cable", "battery", "he3_generator", "electrolyzer", "airlock_door"]:
+        if M + b not in d["values"]:
+            d["values"].append(M + b)
+    w(t, d)
+    w(f"{RES}/data/minecraft/tags/blocks/beds.json", {"replace": False, "values": [M + "sleeping_pod"]})
+
+    # receitas
+    shaped("cable", ["AAA", "NNN", "AAA"], {"A": "aluminum_ingot", "N": "niobium_ingot"}, "cable", 12)
+    shaped("battery", ["ASA", "NIN", "ASA"], {"A": "aluminum_ingot", "S": "silicon", "N": "niobium_ingot", "I": "ice_shard"}, "battery")
+    shaped("he3_generator", ["TNT", "HGH", "TCT"], {"T": "titanium_ingot", "N": "niobium_ingot", "H": "helium3_crystal",
+                                                     "G": "habitat_glass", "C": "cable"}, "he3_generator")
+    shaped("electrolyzer", ["ACA", "GIG", "ASA"], {"A": "aluminum_ingot", "C": "cable", "G": "habitat_glass",
+                                                   "I": "ice_shard", "S": "silicon"}, "electrolyzer")
+    shaped("solar_panel", ["SSS", "NRN", "ACA"], {"S": "silicon", "N": "niobium_ingot", "R": "aluminum_rod",
+                                                  "A": "aluminum_ingot", "C": "cable"}, "solar_panel", 1, "building")
+    shaped("airlock_door", ["AA", "GA", "WA"], {"A": "aluminum_ingot", "G": "habitat_glass", "W": "habitat_wall"}, "airlock_door", 1, "building")
+    shaped("sleeping_pod", ["GGG", "WSW", "AAA"], {"G": "habitat_glass", "W": "habitat_wall", "S": "minecraft:white_wool",
+                                                   "A": "aluminum_ingot"}, "sleeping_pod", 1, "building")
+    shaped("sleeping_pod_lunar", ["GGG", "WRW", "AAA"], {"G": "habitat_glass", "W": "habitat_wall", "R": "space_ration",
+                                                         "A": "aluminum_ingot"}, "sleeping_pod", 1, "building")
+    shaped("light_stick", ["S", "R"], {"S": "silicon", "R": "aluminum_rod"}, "light_stick", 6, "building")
+    import os as _os
+    velho = f"{D}/recipes/torch_from_silicon.json"
+    if _os.path.exists(velho):
+        _os.remove(velho)
+    shaped("rover_kit", ["TGT", "CBC", "WSW"], {"T": "titanium_ingot", "G": "habitat_glass", "C": "cable", "B": "battery",
+                                                 "W": "aluminum_block", "S": "solar_panel"}, "rover_kit")
+    shapeless("space_ration", ["minecraft:wheat", "minecraft:wheat", "minecraft:carrot", "aluminum_ingot"], "space_ration", 3)
+    shapeless("space_ration_potato", ["minecraft:baked_potato", "minecraft:baked_potato", "minecraft:carrot", "aluminum_ingot"], "space_ration", 3)
+
+    # nomes
+    pt = ler(f"{A}/lang/pt_br.json")
+    en = ler(f"{A}/lang/en_us.json")
+    novos = {
+        "block.lunarminers.cable": ("Cabo de Energia", "Power Cable"),
+        "block.lunarminers.battery": ("Banco de Baterias", "Battery Bank"),
+        "block.lunarminers.he3_generator": ("Reator de Hélio-3", "Helium-3 Reactor"),
+        "block.lunarminers.electrolyzer": ("Eletrolisador", "Electrolyzer"),
+        "block.lunarminers.airlock_door": ("Porta de Eclusa", "Airlock Door"),
+        "block.lunarminers.sleeping_pod": ("Cápsula de Dormir", "Sleeping Pod"),
+        "item.lunarminers.sleeping_pod": ("Cápsula de Dormir", "Sleeping Pod"),
+        "block.lunarminers.light_stick": ("Bastão de Luz", "Light Stick"),
+        "item.lunarminers.rover_kit": ("Kit do Rover Lunar", "Lunar Rover Kit"),
+        "item.lunarminers.space_ration": ("Ração Espacial", "Space Ration"),
+        "entity.lunarminers.rover": ("Rover Lunar", "Lunar Rover"),
+        "tooltip.lunarminers.rover_kit": ("Clique no chão para montar. Agache + clique no rover abre a carga.", "Click the ground to deploy. Sneak + click the rover opens its cargo."),
+        "message.lunarminers.rover_battery": ("Bateria do rover: %s%%", "Rover battery: %s%%"),
+        "message.lunarminers.solar_on": ("Painel solar gerando %s FE/t — %s", "Solar panel generating %s FE/t — %s"),
+        "message.lunarminers.solar_off": ("Painel solar parado (sem sol) — %2$s", "Solar panel idle (no sun) — %2$s"),
+        "message.lunarminers.battery": ("Bateria %s%% — %s", "Battery %s%% — %s"),
+        "message.lunarminers.he3": ("Reator: %s s de combustível — %s. Coloque cristais de hélio-3.", "Reactor: %s s of fuel — %s. Insert helium-3 crystals."),
+        "message.lunarminers.electrolyzer": ("Eletrolisador: %s de gelo — %s — O₂ nos tanques: %s", "Electrolyzer: %s ice — %s — O₂ in tanks: %s"),
+        "message.lunarminers.distributor_on": ("Distribuidor LIGADO — O₂ nos tanques: %s — %s — ar num raio de %s blocos", "Distributor ON — O₂ in tanks: %s — %s — air within %s blocks"),
+        "message.lunarminers.distributor_no_energy": ("Distribuidor DESLIGADO: sem energia! — O₂: %s — %s", "Distributor OFF: no power! — O₂: %s — %s"),
+        "message.lunarminers.distributor_no_oxygen": ("Distribuidor DESLIGADO: tanques vazios! — O₂: %s — %s", "Distributor OFF: tanks empty! — O₂: %s — %s"),
+        "message.lunarminers.tank": ("Tanque de O₂: %s / %s", "O₂ tank: %s / %s"),
+        "message.lunarminers.cable": ("Cabo: %s FE", "Cable: %s FE"),
+        "message.lunarminers.airlock_start": ("Ciclando a eclusa... aguarde a pressurização", "Cycling airlock... wait for pressurization"),
+        "message.lunarminers.airlock_cycling": ("A eclusa já está ciclando", "The airlock is already cycling"),
+        "message.lunarminers.airlock_locked": ("Trava de segurança: feche a outra porta da eclusa primeiro", "Safety lock: close the other airlock door first"),
+        "message.lunarminers.welcome": ("§bBem-vindo ao Complexo Lunar Cruzeiro do Sul! §7Seu traje e o kit estão no contêiner da cúpula central. A base vive de energia solar e dos tanques de O₂: de noite as baterias seguram. Para sair, use a eclusa ao sul — tem um rover estacionado lá fora.",
+                                        "§bWelcome to the Cruzeiro do Sul Lunar Complex! §7Your suit and kit are in the central dome crate. The base runs on solar power and O₂ tanks: batteries carry the night. To go out, use the south airlock — there is a rover parked outside."),
+    }
+    for k, (a_, b_) in novos.items():
+        pt[k] = a_
+        en[k] = b_
+    w(f"{A}/lang/pt_br.json", pt)
+    w(f"{A}/lang/en_us.json", en)
+
+
 if __name__ == "__main__":
     modelos()
     saques()
@@ -481,4 +690,5 @@ if __name__ == "__main__":
     receitas()
     geracao()
     nomes()
+    dados_05()
     print("dados gerados")

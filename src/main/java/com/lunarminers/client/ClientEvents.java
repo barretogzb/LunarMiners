@@ -15,6 +15,12 @@ public final class ClientEvents {
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.ALIEN.get(), AlienRenderer::new);
+        event.registerEntityRenderer(ModEntities.ROVER.get(), RoverRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(RoverModel.LAYER, RoverModel::criarCamada);
     }
 
     @SubscribeEvent

@@ -3,18 +3,24 @@
   "category": "building",
   "pattern": [
     "SSS",
-    " R ",
-    "AAA"
+    "NRN",
+    "ACA"
   ],
   "key": {
     "S": {
       "item": "lunarminers:silicon"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
     },
     "R": {
       "item": "lunarminers:aluminum_rod"
     },
     "A": {
       "item": "lunarminers:aluminum_ingot"
+    },
+    "C": {
+      "item": "lunarminers:cable"
     }
   },
   "result": {

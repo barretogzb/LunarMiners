@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "AAA",
+    "NNN",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:cable",
+    "count": 12
+  }
+}

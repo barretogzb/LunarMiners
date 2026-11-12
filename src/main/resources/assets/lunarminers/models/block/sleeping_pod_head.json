@@ -1,0 +1,141 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "base": "lunarminers:block/furniture_metal",
+    "mattress": "lunarminers:block/seat",
+    "shell": "lunarminers:block/habitat_wall",
+    "glass": "lunarminers:block/habitat_glass",
+    "particle": "lunarminers:block/habitat_wall"
+  },
+  "elements": [
+    {
+      "from": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "to": [
+        15.0,
+        3.0,
+        16.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#base"
+        },
+        "south": {
+          "texture": "#base"
+        },
+        "east": {
+          "texture": "#base"
+        },
+        "west": {
+          "texture": "#base"
+        },
+        "up": {
+          "texture": "#base"
+        },
+        "down": {
+          "texture": "#base"
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        3.0,
+        2.0
+      ],
+      "to": [
+        14.0,
+        7.0,
+        16.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mattress"
+        },
+        "south": {
+          "texture": "#mattress"
+        },
+        "east": {
+          "texture": "#mattress"
+        },
+        "west": {
+          "texture": "#mattress"
+        },
+        "up": {
+          "texture": "#mattress"
+        },
+        "down": {
+          "texture": "#mattress"
+        }
+      }
+    },
+    {
+      "from": [
+        1.5,
+        3.0,
+        1.0
+      ],
+      "to": [
+        14.5,
+        11.0,
+        4.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "down": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        2.0,
+        7.0,
+        4.0
+      ],
+      "to": [
+        14.0,
+        10.5,
+        16.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#glass"
+        },
+        "south": {
+          "texture": "#glass"
+        },
+        "east": {
+          "texture": "#glass"
+        },
+        "west": {
+          "texture": "#glass"
+        },
+        "up": {
+          "texture": "#glass"
+        },
+        "down": {
+          "texture": "#glass"
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:translucent"
+}

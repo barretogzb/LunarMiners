@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "AA",
+    "GA",
+    "WA"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "W": {
+      "item": "lunarminers:habitat_wall"
+    }
+  },
+  "result": {
+    "item": "lunarminers:airlock_door",
+    "count": 1
+  }
+}

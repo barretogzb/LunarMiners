@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "lit=false": {
       "model": "lunarminers:block/oxygen_distributor"
+    },
+    "lit=true": {
+      "model": "lunarminers:block/oxygen_distributor_on"
     }
   }
 }

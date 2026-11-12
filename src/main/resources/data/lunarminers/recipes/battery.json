@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ASA",
+    "NIN",
+    "ASA"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    },
+    "I": {
+      "item": "lunarminers:ice_shard"
+    }
+  },
+  "result": {
+    "item": "lunarminers:battery",
+    "count": 1
+  }
+}

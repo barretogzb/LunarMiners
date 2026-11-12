@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "charge=0": {
+      "model": "lunarminers:block/battery_0"
+    },
+    "charge=1": {
+      "model": "lunarminers:block/battery_1"
+    },
+    "charge=2": {
+      "model": "lunarminers:block/battery_2"
+    },
+    "charge=3": {
+      "model": "lunarminers:block/battery_3"
+    },
+    "charge=4": {
+      "model": "lunarminers:block/battery_4"
+    }
+  }
+}

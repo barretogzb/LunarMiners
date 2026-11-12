@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "TNT",
+    "HGH",
+    "TCT"
+  ],
+  "key": {
+    "T": {
+      "item": "lunarminers:titanium_ingot"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    },
+    "H": {
+      "item": "lunarminers:helium3_crystal"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "C": {
+      "item": "lunarminers:cable"
+    }
+  },
+  "result": {
+    "item": "lunarminers:he3_generator",
+    "count": 1
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ACA",
+    "GIG",
+    "ASA"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "C": {
+      "item": "lunarminers:cable"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "I": {
+      "item": "lunarminers:ice_shard"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    }
+  },
+  "result": {
+    "item": "lunarminers:electrolyzer",
+    "count": 1
+  }
+}

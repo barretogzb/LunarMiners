@@ -32,6 +32,11 @@
     "lunarminers:ceiling_lamp",
     "lunarminers:floor_lamp",
     "lunarminers:flag_pole",
-    "lunarminers:flag_pole_top"
+    "lunarminers:flag_pole_top",
+    "lunarminers:cable",
+    "lunarminers:battery",
+    "lunarminers:he3_generator",
+    "lunarminers:electrolyzer",
+    "lunarminers:airlock_door"
   ]
 }

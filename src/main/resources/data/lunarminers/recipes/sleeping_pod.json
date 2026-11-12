@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GGG",
+    "WSW",
+    "AAA"
+  ],
+  "key": {
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "W": {
+      "item": "lunarminers:habitat_wall"
+    },
+    "S": {
+      "item": "minecraft:white_wool"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:sleeping_pod",
+    "count": 1
+  }
+}

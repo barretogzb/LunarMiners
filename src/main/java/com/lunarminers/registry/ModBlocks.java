@@ -3,7 +3,10 @@ package com.lunarminers.registry;
 import com.lunarminers.LunarMiners;
 import com.lunarminers.block.AssemblyBenchBlock;
 import com.lunarminers.block.FlagClothBlock;
-import com.lunarminers.block.OxygenDistributorBlock;
+import com.lunarminers.block.AirlockDoorBlock;
+import com.lunarminers.block.CableBlock;
+import com.lunarminers.block.Machines;
+import com.lunarminers.block.SleepingPodBlock;
 import com.lunarminers.block.ShapedBlock;
 import com.lunarminers.block.SolarFurnaceBlock;
 import com.lunarminers.block.SupplyCrateBlock;
@@ -85,13 +88,31 @@ public final class ModBlocks {
     public static final RegistryObject<Block> SUPPLY_CRATE = register("supply_crate",
             () -> new SupplyCrateBlock(moveis()));
     public static final RegistryObject<Block> OXYGEN_DISTRIBUTOR = register("oxygen_distributor",
-            () -> new OxygenDistributorBlock(moveis().lightLevel(s -> 9), Block.box(3, 0, 3, 13, 13, 13)));
+            () -> new Machines.Distributor(moveis().lightLevel(s -> s.getValue(BlockStateProperties.LIT) ? 10 : 2),
+                    Block.box(3, 0, 3, 13, 13, 13)));
     public static final RegistryObject<Block> OXYGEN_TANK = register("oxygen_tank",
             () -> new ShapedBlock(metal().noOcclusion(), Block.box(2, 0, 2, 14, 16, 14)));
     public static final RegistryObject<Block> OXYGEN_TANK_CAP = register("oxygen_tank_cap",
-            () -> new ShapedBlock(metal().noOcclusion(), Block.box(2, 0, 2, 14, 13, 14)));
+            () -> new Machines.TankValve(metal().noOcclusion(), Block.box(2, 0, 2, 14, 13, 14)));
     public static final RegistryObject<Block> SOLAR_PANEL = register("solar_panel",
-            () -> new ShapedBlock(moveis(), Block.box(0, 0, 0, 16, 14, 16)));
+            () -> new Machines.SolarPanel(moveis(), Block.box(0, 0, 0, 16, 14, 16)));
+    public static final RegistryObject<Block> CABLE = register("cable",
+            () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS).strength(0.6F).noOcclusion()));
+    public static final RegistryObject<Block> BATTERY = register("battery",
+            () -> new Machines.Battery(metal().noOcclusion(), Block.box(1, 0, 1, 15, 15, 15)));
+    public static final RegistryObject<Block> HE3_GENERATOR = register("he3_generator",
+            () -> new Machines.He3Generator(metal().noOcclusion().lightLevel(s -> s.getValue(BlockStateProperties.LIT) ? 12 : 0),
+                    Block.box(1, 0, 1, 15, 15, 15)));
+    public static final RegistryObject<Block> ELECTROLYZER = register("electrolyzer",
+            () -> new Machines.Electrolyzer(metal().noOcclusion().lightLevel(s -> s.getValue(BlockStateProperties.LIT) ? 8 : 0),
+                    Block.box(2, 0, 2, 14, 15, 14)));
+    public static final RegistryObject<Block> AIRLOCK_DOOR = register("airlock_door",
+            () -> new AirlockDoorBlock(metal().strength(5.0F, 12.0F).noOcclusion()));
+    public static final RegistryObject<Block> SLEEPING_POD = registerNoItem("sleeping_pod",
+            () -> new SleepingPodBlock(BlockBehaviour.Properties.copy(Blocks.WHITE_BED).strength(1.0F).noOcclusion()));
+    public static final RegistryObject<Block> LIGHT_STICK = register("light_stick",
+            () -> new ShapedBlock(BlockBehaviour.Properties.copy(Blocks.TORCH).lightLevel(s -> 14).noCollission(),
+                    Block.box(6.5, 0, 6.5, 9.5, 11, 9.5)));
 
     // ---------- Móveis ----------
     private static final VoxelShape MESA = Shapes.or(Block.box(6, 0, 6, 10, 12, 10), Block.box(1, 12, 1, 15, 14, 15));

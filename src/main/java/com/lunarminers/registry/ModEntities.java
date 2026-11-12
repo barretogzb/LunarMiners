@@ -2,6 +2,7 @@ package com.lunarminers.registry;
 
 import com.lunarminers.LunarMiners;
 import com.lunarminers.entity.AlienEntity;
+import com.lunarminers.entity.RoverEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,6 +18,12 @@ public final class ModEntities {
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8)
                     .build("alien"));
+
+    public static final RegistryObject<EntityType<RoverEntity>> ROVER = ENTITIES.register("rover",
+            () -> EntityType.Builder.<RoverEntity>of(RoverEntity::new, MobCategory.MISC)
+                    .sized(2.2F, 1.4F)
+                    .clientTrackingRange(10)
+                    .build("rover"));
 
     private ModEntities() {}
 }

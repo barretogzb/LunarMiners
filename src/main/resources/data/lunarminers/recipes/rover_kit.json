@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "TGT",
+    "CBC",
+    "WSW"
+  ],
+  "key": {
+    "T": {
+      "item": "lunarminers:titanium_ingot"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "C": {
+      "item": "lunarminers:cable"
+    },
+    "B": {
+      "item": "lunarminers:battery"
+    },
+    "W": {
+      "item": "lunarminers:aluminum_block"
+    },
+    "S": {
+      "item": "lunarminers:solar_panel"
+    }
+  },
+  "result": {
+    "item": "lunarminers:rover_kit",
+    "count": 1
+  }
+}

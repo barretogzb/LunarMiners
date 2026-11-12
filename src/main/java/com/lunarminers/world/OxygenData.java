@@ -1,8 +1,10 @@
 package com.lunarminers.world;
 
-import com.lunarminers.block.OxygenDistributorBlock;
-import com.lunarminers.registry.ModBlocks;
+import com.lunarminers.blockentity.DistributorBlockEntity;
+import com.lunarminers.blockentity.OxygenTankBlockEntity;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,15 +12,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 
 /**
- * Lista de Distribuidores de Oxigênio do mundo. Um distribuidor só funciona
- * se tiver uma válvula de tanque de oxigênio por perto — os tanques são a reserva da base.
+ * Rede de oxigênio do mundo: onde estão os distribuidores e as válvulas de tanque.
+ * Um distribuidor puxa O₂ de qualquer tanque num raio de 32 blocos (a base inteira).
  */
 public class OxygenData extends SavedData {
     private static final String NAME = "lunarminers_oxygen";
     public static final int RAIO_AR = 18;
-    public static final int RAIO_TANQUE = 6;
+    public static final int RAIO_TANQUE = 32;
 
     private final Set<Long> distribuidores = new HashSet<>();
+    private final Set<Long> tanques = new HashSet<>();
 
     public static OxygenData get(ServerLevel level) {
         ServerLevel overworld = level.getServer().overworld();
@@ -30,12 +33,16 @@ public class OxygenData extends SavedData {
         for (long l : tag.getLongArray("d")) {
             data.distribuidores.add(l);
         }
+        for (long l : tag.getLongArray("t")) {
+            data.tanques.add(l);
+        }
         return data;
     }
 
     @Override
     public CompoundTag save(CompoundTag tag) {
         tag.putLongArray("d", distribuidores.stream().mapToLong(Long::longValue).toArray());
+        tag.putLongArray("t", tanques.stream().mapToLong(Long::longValue).toArray());
         return tag;
     }
 
@@ -51,23 +58,27 @@ public class OxygenData extends SavedData {
         }
     }
 
-    public static int contarTanques(ServerLevel level, BlockPos centro) {
-        int n = 0;
-        BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
-        for (int dx = -RAIO_TANQUE; dx <= RAIO_TANQUE; dx++) {
-            for (int dy = -3; dy <= 4; dy++) {
-                for (int dz = -RAIO_TANQUE; dz <= RAIO_TANQUE; dz++) {
-                    p.set(centro.getX() + dx, centro.getY() + dy, centro.getZ() + dz);
-                    if (level.getBlockState(p).is(ModBlocks.OXYGEN_TANK_CAP.get())) {
-                        n++;
-                    }
-                }
-            }
+    public void adicionarTanque(BlockPos pos) {
+        if (tanques.add(pos.asLong())) {
+            setDirty();
         }
-        return n;
     }
 
-    /** O ar é respirável se houver um distribuidor ativo (com tanque) perto. */
+    public void removerTanque(BlockPos pos) {
+        if (tanques.remove(pos.asLong())) {
+            setDirty();
+        }
+    }
+
+    public List<BlockPos> tanques() {
+        List<BlockPos> lista = new ArrayList<>(tanques.size());
+        for (long l : tanques) {
+            lista.add(BlockPos.of(l));
+        }
+        return lista;
+    }
+
+    /** O ar é respirável perto de um distribuidor ligado (com energia e oxigênio). */
     public boolean respiravel(ServerLevel level, BlockPos pos) {
         long raio2 = (long) RAIO_AR * RAIO_AR;
         for (long l : distribuidores) {
@@ -75,13 +86,18 @@ public class OxygenData extends SavedData {
             if (d.distSqr(pos) > raio2 || !level.isLoaded(d)) {
                 continue;
             }
-            if (!(level.getBlockState(d).getBlock() instanceof OxygenDistributorBlock)) {
-                continue;
-            }
-            if (contarTanques(level, d) > 0) {
+            if (level.getBlockEntity(d) instanceof DistributorBlockEntity dist && dist.ativo()) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static int oxigenioPerto(ServerLevel level, BlockPos pos) {
+        int total = 0;
+        for (OxygenTankBlockEntity t : OxygenTankBlockEntity.proximos(level, pos, RAIO_TANQUE)) {
+            total += t.oxigenio();
+        }
+        return total;
     }
 }

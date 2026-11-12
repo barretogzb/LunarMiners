@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "lunarminers:block/electrolyzer"
+    },
+    "lit=true": {
+      "model": "lunarminers:block/electrolyzer_on"
+    }
+  }
+}

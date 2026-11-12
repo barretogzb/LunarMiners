@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "cycling=false,facing=north,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom"
+    },
+    "cycling=true,facing=north,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom"
+    },
+    "cycling=false,facing=north,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom"
+    },
+    "cycling=true,facing=north,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom"
+    },
+    "cycling=false,facing=north,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top"
+    },
+    "cycling=true,facing=north,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top"
+    },
+    "cycling=false,facing=north,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top"
+    },
+    "cycling=true,facing=north,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top"
+    },
+    "cycling=false,facing=east,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom",
+      "y": 90
+    },
+    "cycling=true,facing=east,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom",
+      "y": 90
+    },
+    "cycling=false,facing=east,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom",
+      "y": 90
+    },
+    "cycling=true,facing=east,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom",
+      "y": 90
+    },
+    "cycling=false,facing=east,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top",
+      "y": 90
+    },
+    "cycling=true,facing=east,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top",
+      "y": 90
+    },
+    "cycling=false,facing=east,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top",
+      "y": 90
+    },
+    "cycling=true,facing=east,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top",
+      "y": 90
+    },
+    "cycling=false,facing=south,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom",
+      "y": 180
+    },
+    "cycling=true,facing=south,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom",
+      "y": 180
+    },
+    "cycling=false,facing=south,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom",
+      "y": 180
+    },
+    "cycling=true,facing=south,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom",
+      "y": 180
+    },
+    "cycling=false,facing=south,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top",
+      "y": 180
+    },
+    "cycling=true,facing=south,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top",
+      "y": 180
+    },
+    "cycling=false,facing=south,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top",
+      "y": 180
+    },
+    "cycling=true,facing=south,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top",
+      "y": 180
+    },
+    "cycling=false,facing=west,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom",
+      "y": 270
+    },
+    "cycling=true,facing=west,half=lower,open=false": {
+      "model": "lunarminers:block/airlock_door_bottom",
+      "y": 270
+    },
+    "cycling=false,facing=west,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom",
+      "y": 270
+    },
+    "cycling=true,facing=west,half=lower,open=true": {
+      "model": "lunarminers:block/airlock_door_open_bottom",
+      "y": 270
+    },
+    "cycling=false,facing=west,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top",
+      "y": 270
+    },
+    "cycling=true,facing=west,half=upper,open=false": {
+      "model": "lunarminers:block/airlock_door_top",
+      "y": 270
+    },
+    "cycling=false,facing=west,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top",
+      "y": 270
+    },
+    "cycling=true,facing=west,half=upper,open=true": {
+      "model": "lunarminers:block/airlock_door_open_top",
+      "y": 270
+    }
+  }
+}
