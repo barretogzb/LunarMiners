@@ -278,7 +278,8 @@ def tags():
 # ---------------- receitas ----------------
 
 def shaped(nome, padrao, chaves, resultado, qtd=1, cat="misc"):
-    k = {c: ({"item": v} if ":" in v else {"item": M + v}) for c, v in chaves.items()}
+    usados = set("".join(padrao))
+    k = {c: ({"item": v} if ":" in v else {"item": M + v}) for c, v in chaves.items() if c in usados}
     w(f"{D}/recipes/{nome}.json", {"type": "minecraft:crafting_shaped", "category": cat, "pattern": padrao, "key": k,
                                    "result": {"item": resultado if ":" in resultado else M + resultado, "count": qtd}})
 
