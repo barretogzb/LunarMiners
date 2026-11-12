@@ -44,5 +44,9 @@ public final class ModEntities {
             () -> EntityType.Builder.<com.lunarminers.entity.AcidBlobEntity>of(com.lunarminers.entity.AcidBlobEntity::new, MobCategory.MISC)
                     .sized(0.4F, 0.4F).clientTrackingRange(6).updateInterval(10).build("acid_blob"));
 
+    public static final RegistryObject<EntityType<com.lunarminers.entity.RocketEntity>> ROCKET = ENTITIES.register("rocket",
+            () -> EntityType.Builder.<com.lunarminers.entity.RocketEntity>of(com.lunarminers.entity.RocketEntity::new, MobCategory.MISC)
+                    .sized(2.0F, 6.0F).clientTrackingRange(16).updateInterval(1).fireImmune().build("rocket"));
+
     private ModEntities() {}
 }

@@ -179,5 +179,17 @@
   "item.lunarminers.alien_queen_spawn_egg": "Ovo Gerador da Rainha",
   "entity.lunarminers.alien_spitter": "Alienígena Cuspidor",
   "entity.lunarminers.alien_queen": "Rainha Alienígena",
-  "entity.lunarminers.acid_blob": "Ácido Alienígena"
+  "entity.lunarminers.acid_blob": "Ácido Alienígena",
+  "item.lunarminers.rocket_kit": "Kit do Foguete",
+  "item.lunarminers.rocket_fuel": "Combustível de Hélio-3",
+  "entity.lunarminers.rocket": "Foguete",
+  "tooltip.lunarminers.rocket_kit": "Monte no chão, abasteça com %s Combustíveis de Hélio-3 e entre. Da Lua vai para a Terra; da Terra volta para a Lua.",
+  "message.lunarminers.rocket_fuel": "Combustível: %s / %s",
+  "message.lunarminers.rocket_need_fuel": "Sem combustível suficiente: %s / %s",
+  "message.lunarminers.rocket_no_space": "Sem espaço para montar o foguete",
+  "message.lunarminers.rocket_countdown_start": "Sistemas prontos. Iniciando contagem regressiva! (agache para abortar)",
+  "message.lunarminers.rocket_t": "T-%s",
+  "message.lunarminers.rocket_liftoff": "DECOLAGEM!",
+  "message.lunarminers.rocket_arrived_earth": "Pouso concluído. Bem-vindo de volta à Terra! Aqui tem ar, árvores e gravidade normal.",
+  "message.lunarminers.rocket_arrived_moon": "Pouso lunar concluído. Coloque o traje: aqui não tem ar!"
 }

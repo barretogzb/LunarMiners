@@ -891,6 +891,40 @@ def dados_07():
     w(f"{A}/lang/en_us.json", en)
 
 
+# ---------------- 0.8: de volta à Terra ----------------
+
+def dados_08():
+    w(f"{D}/dimension/earth.json", {"type": "minecraft:overworld", "generator": {"type": "minecraft:noise",
+        "biome_source": {"type": "minecraft:multi_noise", "preset": "minecraft:overworld"}, "settings": "minecraft:overworld"}})
+    item_plano("rocket_kit")
+    item_plano("rocket_fuel")
+    shaped("rocket_fuel", ["IHI", "HAH", "IHI"], {"I": "ice_shard", "H": "helium3_crystal", "A": "aluminum_ingot"}, "rocket_fuel", 2)
+    shaped("rocket_kit", ["MQM", "TGT", "BRB"], {"M": "meteorite_fragment", "Q": "queen_core", "T": "titanium_block",
+                                                 "G": "habitat_glass", "B": "battery", "R": "he3_generator"}, "rocket_kit", 1, "misc")
+    pt = ler(f"{A}/lang/pt_br.json")
+    en = ler(f"{A}/lang/en_us.json")
+    novos = {
+        "item.lunarminers.rocket_kit": ("Kit do Foguete", "Rocket Kit"),
+        "item.lunarminers.rocket_fuel": ("Combustível de Hélio-3", "Helium-3 Fuel"),
+        "entity.lunarminers.rocket": ("Foguete", "Rocket"),
+        "tooltip.lunarminers.rocket_kit": ("Monte no chão, abasteça com %s Combustíveis de Hélio-3 e entre. Da Lua vai para a Terra; da Terra volta para a Lua.",
+                                           "Deploy on the ground, fuel it with %s Helium-3 Fuel and climb in. From the Moon it goes to Earth; from Earth back to the Moon."),
+        "message.lunarminers.rocket_fuel": ("Combustível: %s / %s", "Fuel: %s / %s"),
+        "message.lunarminers.rocket_need_fuel": ("Sem combustível suficiente: %s / %s", "Not enough fuel: %s / %s"),
+        "message.lunarminers.rocket_no_space": ("Sem espaço para montar o foguete", "No room to deploy the rocket"),
+        "message.lunarminers.rocket_countdown_start": ("Sistemas prontos. Iniciando contagem regressiva! (agache para abortar)", "Systems go. Starting countdown! (sneak to abort)"),
+        "message.lunarminers.rocket_t": ("T-%s", "T-%s"),
+        "message.lunarminers.rocket_liftoff": ("DECOLAGEM!", "LIFTOFF!"),
+        "message.lunarminers.rocket_arrived_earth": ("Pouso concluído. Bem-vindo de volta à Terra! Aqui tem ar, árvores e gravidade normal.", "Landing complete. Welcome back to Earth! There is air, trees and normal gravity here."),
+        "message.lunarminers.rocket_arrived_moon": ("Pouso lunar concluído. Coloque o traje: aqui não tem ar!", "Lunar landing complete. Suit up: there is no air here!"),
+    }
+    for k, (a_, b_) in novos.items():
+        pt[k] = a_
+        en[k] = b_
+    w(f"{A}/lang/pt_br.json", pt)
+    w(f"{A}/lang/en_us.json", en)
+
+
 if __name__ == "__main__":
     modelos()
     saques()
@@ -901,4 +935,5 @@ if __name__ == "__main__":
     dados_05()
     dados_06()
     dados_07()
+    dados_08()
     print("dados gerados")

@@ -179,5 +179,17 @@
   "item.lunarminers.alien_queen_spawn_egg": "Queen Spawn Egg",
   "entity.lunarminers.alien_spitter": "Alien Spitter",
   "entity.lunarminers.alien_queen": "Alien Queen",
-  "entity.lunarminers.acid_blob": "Alien Acid"
+  "entity.lunarminers.acid_blob": "Alien Acid",
+  "item.lunarminers.rocket_kit": "Rocket Kit",
+  "item.lunarminers.rocket_fuel": "Helium-3 Fuel",
+  "entity.lunarminers.rocket": "Rocket",
+  "tooltip.lunarminers.rocket_kit": "Deploy on the ground, fuel it with %s Helium-3 Fuel and climb in. From the Moon it goes to Earth; from Earth back to the Moon.",
+  "message.lunarminers.rocket_fuel": "Fuel: %s / %s",
+  "message.lunarminers.rocket_need_fuel": "Not enough fuel: %s / %s",
+  "message.lunarminers.rocket_no_space": "No room to deploy the rocket",
+  "message.lunarminers.rocket_countdown_start": "Systems go. Starting countdown! (sneak to abort)",
+  "message.lunarminers.rocket_t": "T-%s",
+  "message.lunarminers.rocket_liftoff": "LIFTOFF!",
+  "message.lunarminers.rocket_arrived_earth": "Landing complete. Welcome back to Earth! There is air, trees and normal gravity here.",
+  "message.lunarminers.rocket_arrived_moon": "Lunar landing complete. Suit up: there is no air here!"
 }

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MQM",
+    "TGT",
+    "BRB"
+  ],
+  "key": {
+    "M": {
+      "item": "lunarminers:meteorite_fragment"
+    },
+    "Q": {
+      "item": "lunarminers:queen_core"
+    },
+    "T": {
+      "item": "lunarminers:titanium_block"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "B": {
+      "item": "lunarminers:battery"
+    },
+    "R": {
+      "item": "lunarminers:he3_generator"
+    }
+  },
+  "result": {
+    "item": "lunarminers:rocket_kit",
+    "count": 1
+  }
+}
