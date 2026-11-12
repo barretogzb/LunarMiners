@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lunarminers:lunar_highlands",
+    "lunarminers:lunar_maria",
+    "lunarminers:crater_fields"
+  ]
+}

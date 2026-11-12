@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "T T",
+    "TST",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "lunarminers:titanium_ingot"
+    },
+    "S": {
+      "item": "lunarminers:space_suit_chestplate"
+    }
+  },
+  "result": {
+    "item": "lunarminers:titanium_suit_chestplate",
+    "count": 1
+  }
+}

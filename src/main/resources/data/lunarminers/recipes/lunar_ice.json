@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "II",
+    "II"
+  ],
+  "key": {
+    "I": {
+      "item": "lunarminers:ice_shard"
+    }
+  },
+  "result": {
+    "item": "lunarminers:lunar_ice",
+    "count": 1
+  }
+}

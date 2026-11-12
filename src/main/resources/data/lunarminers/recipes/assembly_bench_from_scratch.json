@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SAS",
+    "ARA",
+    "R R"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    }
+  },
+  "result": {
+    "item": "lunarminers:assembly_bench",
+    "count": 1
+  }
+}

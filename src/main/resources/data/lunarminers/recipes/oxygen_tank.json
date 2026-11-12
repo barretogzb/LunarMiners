@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "pattern": [
-    "I I",
-    "IGI",
-    "I I"
+    "A A",
+    "AGA",
+    "A A"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
     },
     "G": {
-      "item": "minecraft:glass"
+      "item": "lunarminers:habitat_glass"
     }
   },
   "result": {

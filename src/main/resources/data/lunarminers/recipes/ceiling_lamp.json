@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " A ",
+    "SGS"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    }
+  },
+  "result": {
+    "item": "lunarminers:ceiling_lamp",
+    "count": 2
+  }
+}

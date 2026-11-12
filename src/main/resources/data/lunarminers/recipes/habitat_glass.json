@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GGG",
+    "GAG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:habitat_glass",
+    "count": 8
+  }
+}

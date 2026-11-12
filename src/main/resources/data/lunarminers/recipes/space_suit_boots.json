@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "A A",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "T": {
+      "item": "lunarminers:oxygen_tank"
+    }
+  },
+  "result": {
+    "item": "lunarminers:space_suit_boots",
+    "count": 1
+  }
+}

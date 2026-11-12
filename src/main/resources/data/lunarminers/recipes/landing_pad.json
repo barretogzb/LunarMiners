@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "FFF",
+    "FSF",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "lunarminers:habitat_floor"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    }
+  },
+  "result": {
+    "item": "lunarminers:landing_pad",
+    "count": 8
+  }
+}

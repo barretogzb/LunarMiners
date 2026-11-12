@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lunarminers:titanium_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:titanium_block",
+    "count": 1
+  }
+}

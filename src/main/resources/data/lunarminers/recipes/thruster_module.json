@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "AHA",
+    "N N"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "H": {
+      "item": "lunarminers:helium3_crystal"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:thruster_module",
+    "count": 1
+  }
+}

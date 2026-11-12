@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MM",
+    "MR",
+    " R"
+  ],
+  "key": {
+    "M": {
+      "item": "lunarminers:niobium_ingot"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    }
+  },
+  "result": {
+    "item": "lunarminers:niobium_axe",
+    "count": 1
+  }
+}

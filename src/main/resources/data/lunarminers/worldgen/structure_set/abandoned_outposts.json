@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "lunarminers:abandoned_outpost",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 77410233,
+    "spacing": 64,
+    "separation": 40
+  }
+}

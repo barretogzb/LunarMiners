@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "M",
+    "R",
+    "R"
+  ],
+  "key": {
+    "M": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    }
+  },
+  "result": {
+    "item": "lunarminers:aluminum_shovel",
+    "count": 1
+  }
+}

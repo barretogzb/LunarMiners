@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SGS",
+    "AHA"
+  ],
+  "key": {
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "H": {
+      "item": "lunarminers:alien_goo"
+    }
+  },
+  "result": {
+    "item": "lunarminers:night_vision_module",
+    "count": 1
+  }
+}

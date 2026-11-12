@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "lunarminers:moon_titanium_ore"
+  },
+  "result": "lunarminers:titanium_ingot",
+  "experience": 1.0,
+  "cookingtime": 100
+}

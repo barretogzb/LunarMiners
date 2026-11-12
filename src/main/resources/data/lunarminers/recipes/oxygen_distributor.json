@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ASA",
+    "NTN",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    },
+    "T": {
+      "item": "lunarminers:oxygen_tank"
+    }
+  },
+  "result": {
+    "item": "lunarminers:oxygen_distributor",
+    "count": 1
+  }
+}

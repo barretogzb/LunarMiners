@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "lunarminers:moon_iron_ore"
+    "lunarminers:moon_iron_ore",
+    "lunarminers:moon_aluminum_ore",
+    "lunarminers:moon_silicon_ore",
+    "lunarminers:aluminum_block"
   ]
 }

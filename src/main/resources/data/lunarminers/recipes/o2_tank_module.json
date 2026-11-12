@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "A A",
+    "ATA",
+    "AIA"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "T": {
+      "item": "lunarminers:oxygen_tank"
+    },
+    "I": {
+      "item": "lunarminers:ice_shard"
+    }
+  },
+  "result": {
+    "item": "lunarminers:o2_tank_module",
+    "count": 1
+  }
+}

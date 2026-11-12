@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NSN",
+    "R R"
+  ],
+  "key": {
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    }
+  },
+  "result": {
+    "item": "lunarminers:servo_module",
+    "count": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "AMA",
+    "AAA"
+  ],
+  "key": {
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "M": {
+      "item": "lunarminers:moon_cobblestone"
+    }
+  },
+  "result": {
+    "item": "lunarminers:solar_furnace",
+    "count": 1
+  }
+}

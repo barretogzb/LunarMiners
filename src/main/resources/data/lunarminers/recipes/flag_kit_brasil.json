@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lunarminers:aluminum_rod"
+    },
+    {
+      "item": "lunarminers:aluminum_rod"
+    },
+    {
+      "item": "lunarminers:aluminum_rod"
+    },
+    {
+      "item": "minecraft:green_dye"
+    },
+    {
+      "item": "minecraft:yellow_dye"
+    },
+    {
+      "item": "minecraft:blue_dye"
+    }
+  ],
+  "result": {
+    "item": "lunarminers:flag_kit_brasil",
+    "count": 1
+  }
+}

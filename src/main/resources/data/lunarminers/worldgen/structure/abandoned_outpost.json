@@ -1,0 +1,7 @@
+{
+  "type": "lunarminers:abandoned_outpost",
+  "biomes": "#lunarminers:has_outpost",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "beard_thin"
+}

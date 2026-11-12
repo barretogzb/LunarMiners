@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "CCC",
+    "CAC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "lunarminers:moon_cobblestone"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:habitat_floor",
+    "count": 8
+  }
+}

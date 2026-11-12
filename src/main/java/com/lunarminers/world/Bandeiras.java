@@ -1,36 +1,28 @@
 package com.lunarminers.world;
 
+import com.lunarminers.block.FlagClothBlock;
+import com.lunarminers.registry.ModBlocks;
+import java.util.Locale;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-/** Bandeiras de países feitas com estandartes (aproximadas com os padrões do jogo). */
+/**
+ * Bandeiras reais de países: um mastro de metal com o tecido 3x2 blocos ao lado,
+ * como as bandeiras fincadas pelas missões que foram à Lua.
+ */
 public enum Bandeiras {
-    BRASIL(Blocks.GREEN_BANNER, "mr", DyeColor.YELLOW, "mc", DyeColor.BLUE),
-    EUA(Blocks.WHITE_BANNER, "ss", DyeColor.RED, "sqtl", DyeColor.BLUE),
-    CHINA(Blocks.RED_BANNER, "sqtl", DyeColor.YELLOW),
-    RUSSIA(Blocks.WHITE_BANNER, "hhb", DyeColor.RED, "ms", DyeColor.BLUE),
-    INDIA(Blocks.WHITE_BANNER, "ts", DyeColor.ORANGE, "bs", DyeColor.GREEN, "mc", DyeColor.BLUE),
-    JAPAO(Blocks.WHITE_BANNER, "mc", DyeColor.RED),
-    FRANCA(Blocks.WHITE_BANNER, "ls", DyeColor.BLUE, "rs", DyeColor.RED),
-    ITALIA(Blocks.WHITE_BANNER, "ls", DyeColor.GREEN, "rs", DyeColor.RED),
-    ALEMANHA(Blocks.YELLOW_BANNER, "ts", DyeColor.BLACK, "ms", DyeColor.RED),
-    ARGENTINA(Blocks.WHITE_BANNER, "ts", DyeColor.LIGHT_BLUE, "bs", DyeColor.LIGHT_BLUE, "mc", DyeColor.YELLOW);
+    BRASIL, EUA, CHINA, RUSSIA, INDIA, JAPAO, FRANCA, ITALIA, ALEMANHA, ARGENTINA;
 
-    private final Block banner;
-    private final Object[] padroes;
+    /** Quem coloca blocos (mundo, estrutura em geração, etc.). */
+    @FunctionalInterface
+    public interface Colocador {
+        void set(BlockPos pos, BlockState state);
+    }
 
-    Bandeiras(Block banner, Object... padroes) {
-        this.banner = banner;
-        this.padroes = padroes;
+    public String id() {
+        return name().toLowerCase(Locale.ROOT);
     }
 
     public static Bandeiras aleatoria(RandomSource random) {
@@ -38,21 +30,29 @@ public enum Bandeiras {
         return todas[random.nextInt(todas.length)];
     }
 
-    public void colocar(LevelAccessor level, BlockPos pos, int rotacao) {
-        BlockState state = banner.defaultBlockState().setValue(BlockStateProperties.ROTATION_16, rotacao & 15);
-        level.setBlock(pos, state, 2);
-        if (level.getBlockEntity(pos) instanceof BannerBlockEntity be) {
-            CompoundTag tag = be.saveWithoutMetadata();
-            ListTag lista = new ListTag();
-            for (int i = 0; i + 1 < padroes.length; i += 2) {
-                CompoundTag p = new CompoundTag();
-                p.putString("Pattern", (String) padroes[i]);
-                p.putInt("Color", ((DyeColor) padroes[i + 1]).getId());
-                lista.add(p);
+    public static Bandeiras estrangeira(RandomSource random) {
+        Bandeiras[] todas = values();
+        return todas[1 + random.nextInt(todas.length - 1)];
+    }
+
+    /**
+     * Finca a bandeira. {@code frente} é o lado de onde ela é vista corretamente;
+     * o mastro fica na esquerda de quem olha e o tecido se estende para a direita.
+     */
+    public void fincar(Colocador c, BlockPos base, Direction frente, int alturaMastro) {
+        BlockState mastro = ModBlocks.FLAG_POLE.get().defaultBlockState();
+        for (int h = 0; h < alturaMastro; h++) {
+            c.set(base.above(h), mastro);
+        }
+        c.set(base.above(alturaMastro), ModBlocks.FLAG_POLE_TOP.get().defaultBlockState());
+        Direction direita = frente.getCounterClockWise();
+        BlockState tecido = ModBlocks.FLAGS.get(this).get().defaultBlockState()
+                .setValue(FlagClothBlock.FACING, frente);
+        for (int linha = 0; linha < 2; linha++) {
+            for (int coluna = 0; coluna < 3; coluna++) {
+                BlockPos p = base.above(alturaMastro - 1 - linha).relative(direita, coluna + 1);
+                c.set(p, tecido.setValue(FlagClothBlock.PART, coluna + linha * 3));
             }
-            tag.put("Patterns", lista);
-            be.load(tag);
-            be.setChanged();
         }
     }
 }

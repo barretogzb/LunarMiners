@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "lunarminers:raw_aluminum"
+  },
+  "result": "lunarminers:aluminum_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}

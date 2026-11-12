@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "A",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:aluminum_rod",
+    "count": 4
+  }
+}

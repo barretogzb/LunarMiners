@@ -1,15 +1,21 @@
 package com.lunarminers.event;
 
 import com.lunarminers.LunarMiners;
+import com.lunarminers.item.ModuleItem;
+import com.lunarminers.item.SuitArmorItem;
 import com.lunarminers.world.LunarBase;
+import com.lunarminers.world.OxygenSystem;
 import java.util.UUID;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -18,7 +24,7 @@ import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-/** Regras da Lua: gravidade baixa, queda mais leve, sem chuva e a base inicial. */
+/** Regras da Lua: gravidade baixa, oxigênio, módulos do traje, sem chuva e a base inicial. */
 @Mod.EventBusSubscriber(modid = LunarMiners.MOD_ID)
 public final class LunarEvents {
     private static final UUID LUNAR_GRAVITY = UUID.fromString("6b2f0c8e-1d3a-4c5b-9e7f-2a1b3c4d5e6f");
@@ -48,9 +54,44 @@ public final class LunarEvents {
 
     @SubscribeEvent
     public static void onFall(LivingFallEvent event) {
-        if (isMoon(event.getEntity().level())) {
-            event.setDamageMultiplier(event.getDamageMultiplier() * 0.4F);
+        if (!isMoon(event.getEntity().level())) {
+            return;
         }
+        if (event.getEntity() instanceof Player player && OxygenSystem.modulos(player, ModuleItem.Tipo.PROPULSOR) > 0) {
+            event.setCanceled(true);
+            return;
+        }
+        event.setDamageMultiplier(event.getDamageMultiplier() * 0.4F);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END && event.player instanceof ServerPlayer player && isMoon(player.level())) {
+            OxygenSystem.tick(player);
+        }
+    }
+
+    /** Bigorna: peça do traje + módulo = peça com o módulo instalado. */
+    @SubscribeEvent
+    public static void onAnvil(AnvilUpdateEvent event) {
+        ItemStack peca = event.getLeft();
+        ItemStack mod = event.getRight();
+        if (!(peca.getItem() instanceof SuitArmorItem suit) || !(mod.getItem() instanceof ModuleItem modulo)) {
+            return;
+        }
+        if (suit.getType() != modulo.tipo.peca) {
+            return;
+        }
+        String chave = ModuleItem.TAG_PREFIX + modulo.tipo.id;
+        int atual = peca.hasTag() ? peca.getTag().getInt(chave) : 0;
+        if (atual >= modulo.tipo.maximo) {
+            return;
+        }
+        ItemStack saida = peca.copy();
+        saida.getOrCreateTag().putInt(chave, atual + 1);
+        event.setOutput(saida);
+        event.setCost(4 + atual * 3);
+        event.setMaterialCost(1);
     }
 
     @SubscribeEvent

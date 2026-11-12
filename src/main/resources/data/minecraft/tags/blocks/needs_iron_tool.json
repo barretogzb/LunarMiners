@@ -4,6 +4,9 @@
     "lunarminers:niobium_ore",
     "lunarminers:deepslate_niobium_ore",
     "lunarminers:moon_niobium_ore",
-    "lunarminers:niobium_block"
+    "lunarminers:niobium_block",
+    "lunarminers:moon_titanium_ore",
+    "lunarminers:moon_helium3_ore",
+    "lunarminers:titanium_block"
   ]
 }

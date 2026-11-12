@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "lunarminers:moon_aluminum_ore"
+  },
+  "result": "lunarminers:aluminum_ingot",
+  "experience": 0.7,
+  "cookingtime": 100
+}

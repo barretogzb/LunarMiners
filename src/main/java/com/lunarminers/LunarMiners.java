@@ -1,10 +1,12 @@
 package com.lunarminers;
 
+import com.lunarminers.registry.ModBlockEntities;
 import com.lunarminers.registry.ModBlocks;
 import com.lunarminers.registry.ModCreativeTabs;
 import com.lunarminers.registry.ModEntities;
 import com.lunarminers.registry.ModFeatures;
 import com.lunarminers.registry.ModItems;
+import com.lunarminers.registry.ModStructures;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -23,6 +25,9 @@ public class LunarMiners {
         ModItems.ITEMS.register(modBus);
         ModEntities.ENTITIES.register(modBus);
         ModFeatures.FEATURES.register(modBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modBus);
+        ModStructures.TYPES.register(modBus);
+        ModStructures.PIECES.register(modBus);
         ModCreativeTabs.TABS.register(modBus);
     }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SSS",
+    " R ",
+    "AAA"
+  ],
+  "key": {
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:solar_panel",
+    "count": 1
+  }
+}

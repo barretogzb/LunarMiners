@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lunarminers:block/supply_crate"
+    }
+  }
+}

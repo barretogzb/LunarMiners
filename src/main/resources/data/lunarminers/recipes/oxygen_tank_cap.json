@@ -3,20 +3,21 @@
   "category": "building",
   "pattern": [
     " N ",
-    "ITI"
+    "ATA"
   ],
   "key": {
     "N": {
       "item": "lunarminers:niobium_ingot"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
     },
     "T": {
       "item": "lunarminers:oxygen_tank"
     }
   },
   "result": {
-    "item": "lunarminers:oxygen_tank_cap"
+    "item": "lunarminers:oxygen_tank_cap",
+    "count": 1
   }
 }

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bucket"
+    },
+    {
+      "item": "lunarminers:ice_shard"
+    },
+    {
+      "item": "lunarminers:ice_shard"
+    },
+    {
+      "item": "lunarminers:ice_shard"
+    },
+    {
+      "item": "lunarminers:ice_shard"
+    }
+  ],
+  "result": {
+    "item": "minecraft:water_bucket",
+    "count": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lunarminers:aluminum_block"
+    }
+  ],
+  "result": {
+    "item": "lunarminers:aluminum_ingot",
+    "count": 9
+  }
+}

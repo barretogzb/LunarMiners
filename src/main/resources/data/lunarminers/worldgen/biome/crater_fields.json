@@ -47,13 +47,16 @@
       "lunarminers:crater_dense"
     ],
     [],
-    [
-      "lunarminers:abandoned_site"
-    ],
+    [],
     [],
     [
       "lunarminers:moon_iron_ore",
-      "lunarminers:moon_niobium_ore"
+      "lunarminers:moon_niobium_ore",
+      "lunarminers:moon_titanium_ore",
+      "lunarminers:moon_aluminum_ore",
+      "lunarminers:moon_silicon_ore",
+      "lunarminers:moon_helium3_ore",
+      "lunarminers:lunar_ice_pocket"
     ]
   ]
 }
