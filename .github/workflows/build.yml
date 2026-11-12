@@ -45,6 +45,10 @@ jobs:
           pkill -f 'net.minecraftforge' 2>/dev/null || true
           echo "===== Linhas importantes do servidor ====="
           grep -nE 'LunarMiners|lunarminers|ERROR|Exception|Caused by|Failed|Done \(' server.log | grep -v 'Mixin' | head -150 || true
+          if grep -E '/ERROR\].*lunarminers|Parsing error' server.log; then
+            echo "Erros de dados do mod encontrados no log"
+            exit 1
+          fi
           if [ "$OK" != "1" ]; then
             echo "===== Final do log ====="
             tail -150 server.log
