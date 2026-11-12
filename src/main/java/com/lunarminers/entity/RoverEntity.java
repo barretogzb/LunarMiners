@@ -39,7 +39,7 @@ public class RoverEntity extends Entity {
     private static final EntityDataAccessor<Integer> CARGA = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DANO = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.FLOAT);
     public static final int CARGA_MAX = 24_000;
-    private static final double VEL_MAX = 0.42D;
+    private static final double VEL_MAX = 0.5D;
 
     private final SimpleContainer carga = new SimpleContainer(27);
     private float velocidade;
@@ -94,7 +94,7 @@ public class RoverEntity extends Entity {
 
     @Override
     public double getPassengersRidingOffset() {
-        return 0.55D;
+        return 1.1D;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class RoverEntity extends Entity {
             return;
         }
         int i = getPassengers().indexOf(passageiro);
-        double lado = i == 0 ? -0.45D : 0.45D;
+        double lado = i == 0 ? -0.56D : 0.56D;
         double rad = Math.toRadians(getYRot());
         double ox = Math.cos(rad) * lado;
         double oz = Math.sin(rad) * lado;
@@ -143,6 +143,11 @@ public class RoverEntity extends Entity {
             discard();
         }
         return true;
+    }
+
+    @Override
+    public net.minecraft.world.phys.AABB getBoundingBoxForCulling() {
+        return getBoundingBox().inflate(0.6D, 2.4D, 0.8D).move(0, 1.2D, 0);
     }
 
     @Override

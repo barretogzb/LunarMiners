@@ -85,6 +85,12 @@ public final class OxygenSystem {
         } else {
             o2 = Math.min(max, o2 - 1);
         }
+        // jetpack: os propulsores usam O₂ comprimido do traje enquanto você sobe no ar
+        double ultimoY = data.contains("lm_y") ? data.getDouble("lm_y") : player.getY();
+        if (!player.onGround() && player.getY() - ultimoY > 0.12 && modulos(player, ModuleItem.Tipo.JETPACK) > 0) {
+            o2 -= 6;
+        }
+        data.putDouble("lm_y", player.getY());
 
         if (o2 <= 0) {
             o2 = 0;

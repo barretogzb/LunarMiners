@@ -3,30 +3,23 @@
 Mod de Minecraft (Forge 1.20.1) feito do zero: uma base brasileira na Lua, mineração, pesquisa,
 criação de vida, máquinas, veículos, armaduras, alienígenas e, no fim, a volta para a Terra.
 
-## Versão atual: 0.5 — "Energia e Eclusas"
-**Rede elétrica (Forge Energy)**
-- Painel Solar: 15 FE/t de dia, com céu aberto
-- Cabo de Energia: se conecta sozinho a cabos e máquinas
-- Banco de Baterias: 400k FE, guarda a energia do dia para a noite (a faixa verde mostra a carga)
-- Reator de Hélio-3: queima cristais de hélio-3 e gera 160 FE/t, de dia ou de noite
+## Versão atual: 0.6 — "Grandioso"
+**Tudo maior**
+- Grande Painel Solar: painel 3x3 inclinado num mastro alto, 60 FE/t (4x o pequeno)
+- Rover no estilo do LRV das missões Apollo, em tamanho grande: 6 rodas altas, dois assentos abertos (o astronauta aparece inteiro), painel de controle, teto de painéis solares, bagageiro e antena parabólica
 
-**Ciclo do oxigênio**
-- Eletrolisador: transforma gelo lunar em O₂ usando energia e enche os tanques (raio de 32 blocos)
-- Tanques: guardam O₂ de verdade; cada corpo empilhado aumenta a capacidade
-- Distribuidor: gasta energia e O₂ dos tanques a cada segundo (mais pessoas = mais consumo). Sem energia ou sem O₂ ele desliga e o ar da base acaba
+**Eventos (inspirados em filmes e jogos de sobrevivência espacial)**
+- Chuva de meteoros (à noite): rochas em chamas caem perto de você, explodem e deixam Minério de Meteorito. A base fica protegida
+- Tempestade solar (de dia): aviso 30 s antes; quem estiver a céu aberto toma radiação (o traje de titânio protege mais). Os painéis solares geram 3x
+- Comandos para testar (com cheats): `/lunar meteoros`, `/lunar tempestade`, `/lunar oxigenio`
 
-**Eclusa**
-- Porta de Eclusa: pressuriza antes de abrir (chiado e vapor, 2,5 s), fecha sozinha, e tem trava de segurança — não abre se outra porta da eclusa estiver aberta
-
-**Blocos próprios no lugar dos do jogo**
-- Cápsula de Dormir (cama), Bastão de Luz (iluminação), Ração Espacial (comida)
-- Nenhum bloco comum é retexturizado mais
-
-**Rover Lunar**
-- Dirigível (WASD), 2 lugares, sobe degraus, bateria com teto solar e compartimento de carga (agache + clique)
-- A base já começa com um rover estacionado do lado de fora da eclusa
+**Equipamentos**
+- Scanner de Minérios: mostra quantos minérios há em 24 blocos, a distância e a direção do mais perto
+- Módulo de Jetpack (no suporte de vida): segure PULAR no ar para voar, gastando O₂ do traje
+- Torre de Comunicação: com 150k FE, chama a Terra e uma cápsula de suprimentos desce freando com retrofoguetes perto da torre (uma vez por dia)
 
 ## Versões anteriores
+- 0.5 "Energia e Eclusas": rede elétrica, ciclo do oxigênio, eclusa, cápsula de dormir e rover
 - 0.4 "Sobreviver na Lua": oxigênio, trajes, minérios, ferramentas, máquinas e móveis, bandeiras reais, base grande
 - 0.3 "Visual Lunar": tela inicial, menus e blocos comuns retexturizados
 - 0.2 "A Lua": mundo lunar, céu espacial, gravidade baixa, alienígenas e base inicial
@@ -47,5 +40,6 @@ As texturas são geradas por código:
 - `tools/gerar_panorama.py`: panorama da tela inicial
 - `tools/gerar_texturas_04.py` e `tools/gerar_bandeiras.py`: texturas da 0.4 e bandeiras
 - `tools/gerar_texturas_05.py`: texturas da 0.5 (rede elétrica, eclusa, rover)
+- `tools/gerar_texturas_06.py`: texturas da 0.6 (painel grande, torre, meteorito, rover grande)
 - `tools/gerar_dados.py`: modelos, receitas, saques, tags, nomes e geração do mundo
 - `tools/gerar_visual.py <assets/minecraft original>`: logo, menus, inventários e blocos comuns

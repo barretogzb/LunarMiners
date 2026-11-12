@@ -55,9 +55,9 @@ public final class Machines {
         @Override
         public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
             if (!level.isClientSide && level.getBlockEntity(pos) instanceof SolarPanelBlockEntity be) {
-                boolean sol = SolarPanelBlockEntity.temSol(level, pos);
-                status(player, Component.translatable(sol ? "message.lunarminers.solar_on" : "message.lunarminers.solar_off",
-                        SolarPanelBlockEntity.GERACAO, fe(be)));
+                int g = be.geracaoAtual();
+                status(player, Component.translatable(g > 0 ? "message.lunarminers.solar_on" : "message.lunarminers.solar_off",
+                        g, fe(be)));
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
@@ -288,6 +288,36 @@ public final class Machines {
                 OxygenData.get(server).adicionarTanque(pos);
                 status(player, Component.translatable("message.lunarminers.tank",
                         EnergyMachineBlock.formatar(be.oxigenio()), EnergyMachineBlock.formatar(be.capacidade())));
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+    }
+
+    // ------------------------------------------------------------------ torre de comunicação
+    public static class CommsTower extends EnergyMachineBlock {
+        public CommsTower(Properties p, VoxelShape s) {
+            super(p, s);
+        }
+
+        @Override
+        public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+            return new com.lunarminers.blockentity.CommsTowerBlockEntity(pos, state);
+        }
+
+        @Override
+        public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+            if (level instanceof ServerLevel server
+                    && level.getBlockEntity(pos) instanceof com.lunarminers.blockentity.CommsTowerBlockEntity be) {
+                if (player.isShiftKeyDown()) {
+                    status(player, Component.translatable("message.lunarminers.tower_status", fe(be),
+                            be.faltaParaChamar(server.getGameTime()) / 20));
+                } else {
+                    int r = be.chamar(server);
+                    String chave = r == 0 ? "message.lunarminers.tower_sent" : r == 1 ? "message.lunarminers.tower_no_energy"
+                            : "message.lunarminers.tower_wait";
+                    status(player, Component.translatable(chave, EnergyMachineBlock.formatar(
+                            com.lunarminers.blockentity.CommsTowerBlockEntity.CUSTO), be.faltaParaChamar(server.getGameTime()) / 20));
+                }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

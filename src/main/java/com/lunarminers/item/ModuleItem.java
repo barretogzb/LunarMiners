@@ -18,7 +18,8 @@ public class ModuleItem extends Item {
         TANQUE("o2_tank", ArmorItem.Type.CHESTPLATE, 3),
         VISOR("night_vision", ArmorItem.Type.HELMET, 1),
         SERVO("servo", ArmorItem.Type.LEGGINGS, 2),
-        PROPULSOR("thruster", ArmorItem.Type.BOOTS, 1);
+        PROPULSOR("thruster", ArmorItem.Type.BOOTS, 1),
+        JETPACK("jetpack", ArmorItem.Type.CHESTPLATE, 1);
 
         public final String id;
         public final ArmorItem.Type peca;

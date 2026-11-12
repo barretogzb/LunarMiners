@@ -21,9 +21,16 @@ public final class ModEntities {
 
     public static final RegistryObject<EntityType<RoverEntity>> ROVER = ENTITIES.register("rover",
             () -> EntityType.Builder.<RoverEntity>of(RoverEntity::new, MobCategory.MISC)
-                    .sized(2.2F, 1.4F)
+                    .sized(3.0F, 1.6F)
                     .clientTrackingRange(10)
                     .build("rover"));
+
+    public static final RegistryObject<EntityType<com.lunarminers.entity.ImpactEntity>> IMPACT = ENTITIES.register("impact",
+            () -> EntityType.Builder.<com.lunarminers.entity.ImpactEntity>of(com.lunarminers.entity.ImpactEntity::new, MobCategory.MISC)
+                    .sized(1.2F, 1.2F)
+                    .clientTrackingRange(16)
+                    .updateInterval(2)
+                    .build("impact"));
 
     private ModEntities() {}
 }

@@ -96,6 +96,13 @@ public final class ModBlocks {
             () -> new Machines.TankValve(metal().noOcclusion(), Block.box(2, 0, 2, 14, 13, 14)));
     public static final RegistryObject<Block> SOLAR_PANEL = register("solar_panel",
             () -> new Machines.SolarPanel(moveis(), Block.box(0, 0, 0, 16, 14, 16)));
+    public static final RegistryObject<Block> SOLAR_ARRAY = register("solar_array",
+            () -> new Machines.SolarPanel(metal().noOcclusion(), Block.box(5, 0, 5, 11, 16, 11)));
+    public static final RegistryObject<Block> COMMS_TOWER = register("comms_tower",
+            () -> new Machines.CommsTower(metal().noOcclusion().lightLevel(s -> 4), Block.box(4, 0, 4, 12, 16, 12)));
+    public static final RegistryObject<Block> METEORITE_ORE = register("meteorite_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.ANCIENT_DEBRIS).requiresCorrectToolForDrops()
+                    .lightLevel(s -> 5), UniformInt.of(4, 9)));
     public static final RegistryObject<Block> CABLE = register("cable",
             () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BARS).strength(0.6F).noOcclusion()));
     public static final RegistryObject<Block> BATTERY = register("battery",

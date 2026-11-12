@@ -35,7 +35,7 @@ public final class ModBlockEntities {
                     .of(BatteryBlockEntity::new, ModBlocks.BATTERY.get()).build(null));
     public static final RegistryObject<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL =
             BLOCK_ENTITIES.register("solar_panel", () -> BlockEntityType.Builder
-                    .of(SolarPanelBlockEntity::new, ModBlocks.SOLAR_PANEL.get()).build(null));
+                    .of(SolarPanelBlockEntity::new, ModBlocks.SOLAR_PANEL.get(), ModBlocks.SOLAR_ARRAY.get()).build(null));
     public static final RegistryObject<BlockEntityType<He3GeneratorBlockEntity>> HE3_GENERATOR =
             BLOCK_ENTITIES.register("he3_generator", () -> BlockEntityType.Builder
                     .of(He3GeneratorBlockEntity::new, ModBlocks.HE3_GENERATOR.get()).build(null));
@@ -48,6 +48,10 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<OxygenTankBlockEntity>> OXYGEN_TANK =
             BLOCK_ENTITIES.register("oxygen_tank", () -> BlockEntityType.Builder
                     .of(OxygenTankBlockEntity::new, ModBlocks.OXYGEN_TANK_CAP.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<com.lunarminers.blockentity.CommsTowerBlockEntity>> COMMS_TOWER =
+            BLOCK_ENTITIES.register("comms_tower", () -> BlockEntityType.Builder
+                    .of(com.lunarminers.blockentity.CommsTowerBlockEntity::new, ModBlocks.COMMS_TOWER.get()).build(null));
 
     private ModBlockEntities() {}
 }

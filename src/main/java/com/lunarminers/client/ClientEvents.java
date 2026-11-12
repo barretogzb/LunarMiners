@@ -16,6 +16,7 @@ public final class ClientEvents {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.ALIEN.get(), AlienRenderer::new);
         event.registerEntityRenderer(ModEntities.ROVER.get(), RoverRenderer::new);
+        event.registerEntityRenderer(ModEntities.IMPACT.get(), ImpactRenderer::new);
     }
 
     @SubscribeEvent

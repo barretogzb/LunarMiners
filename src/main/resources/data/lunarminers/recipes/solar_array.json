@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "PPP",
+    "TCT",
+    " R "
+  ],
+  "key": {
+    "P": {
+      "item": "lunarminers:solar_panel"
+    },
+    "T": {
+      "item": "lunarminers:titanium_ingot"
+    },
+    "C": {
+      "item": "lunarminers:cable"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    }
+  },
+  "result": {
+    "item": "lunarminers:solar_array",
+    "count": 1
+  }
+}

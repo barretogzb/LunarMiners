@@ -683,6 +683,130 @@ def dados_05():
     w(f"{A}/lang/en_us.json", en)
 
 
+# ---------------- 0.6: grandioso, eventos e equipamentos ----------------
+
+def dados_06():
+    # Grande Painel Solar: mastro alto e painel 3x3 inclinado (o modelo sai dos limites do bloco)
+    el = cilindro(4, 0, 1, "#metal") + [caixa([6.5, 1, 6.5], [9.5, 22, 9.5], "#metal"), caixa([5, 21, 5], [11, 24, 11], "#metal")]
+    el.append({"from": [-16, 24, -16], "to": [32, 25.5, 32],
+               "rotation": {"origin": [8, 24.75, 8], "axis": "x", "angle": -22.5},
+               "faces": {"up": {"uv": [0, 0, 16, 16], "texture": "#cell"}, "down": {"uv": [0, 0, 16, 16], "texture": "#back"},
+                         "north": {"uv": [0, 0, 16, 1], "texture": "#edge"}, "south": {"uv": [0, 0, 16, 1], "texture": "#edge"},
+                         "east": {"uv": [0, 0, 16, 1], "texture": "#edge"}, "west": {"uv": [0, 0, 16, 1], "texture": "#edge"}}})
+    for dx in (-8, 8, 24):
+        el.append({"from": [dx - 0.5, 25.5, -16], "to": [dx + 0.5, 26, 32],
+                   "rotation": {"origin": [8, 24.75, 8], "axis": "x", "angle": -22.5},
+                   "faces": {"up": {"texture": "#edge"}, "north": {"texture": "#edge"}, "south": {"texture": "#edge"},
+                             "east": {"texture": "#edge"}, "west": {"texture": "#edge"}}})
+    modelo("solar_array", {"metal": "furniture_metal", "cell": "solar_array_cell", "back": "panel_edge", "edge": "panel_edge"},
+           el, particula="cell")
+    estado_simples("solar_array")
+    w(f"{A}/models/item/solar_array.json", {"parent": M + "block/solar_array", "display": {
+        "gui": {"rotation": [30, 225, 0], "translation": [0, -2, 0], "scale": [0.32, 0.32, 0.32]},
+        "ground": {"scale": [0.25, 0.25, 0.25]}, "fixed": {"scale": [0.3, 0.3, 0.3]},
+        "thirdperson_righthand": {"rotation": [75, 45, 0], "scale": [0.2, 0.2, 0.2]},
+        "firstperson_righthand": {"rotation": [0, 45, 0], "scale": [0.2, 0.2, 0.2]}}})
+
+    # Torre de Comunicação: treliça alta com antena parabólica e luz de sinalização
+    el = cilindro(6, 0, 2, "#metal") + [caixa([5, 2, 5], [11, 6, 11], "#box")]
+    for (x, z) in [(5, 5), (10, 5), (5, 10), (10, 10)]:
+        el.append(caixa([x, 6, z], [x + 1, 28, z + 1], "#metal"))
+    for y in range(9, 28, 5):
+        el.append(caixa([5, y, 5], [11, y + 0.5, 11], "#metal"))
+    el.append(caixa([7.5, 28, 7.5], [8.5, 32, 8.5], "#metal"))
+    el.append(caixa([7, 31, 7], [9, 32, 9], "#light"))
+    el.append({"from": [1, 18, 7.5], "to": [15, 30, 8.5], "rotation": {"origin": [8, 24, 8], "axis": "x", "angle": 22.5},
+               "faces": {"north": {"texture": "#dish"}, "south": {"texture": "#metal"}, "east": {"texture": "#metal"},
+                         "west": {"texture": "#metal"}, "up": {"texture": "#metal"}, "down": {"texture": "#metal"}}})
+    modelo("comms_tower", {"metal": "furniture_metal", "box": "distributor_side", "light": "beacon_red", "dish": "solar_dish"},
+           el, particula="metal")
+    estado_simples("comms_tower")
+    w(f"{A}/models/item/comms_tower.json", {"parent": M + "block/comms_tower", "display": {
+        "gui": {"rotation": [30, 225, 0], "translation": [0, -3, 0], "scale": [0.42, 0.42, 0.42]}}})
+
+    cubo("meteorite_ore")
+    estado_simples("meteorite_ore")
+    item_bloco("meteorite_ore")
+    for i in ["ore_scanner", "meteorite_fragment", "jetpack_module"]:
+        item_plano(i)
+
+    for b in ["solar_array", "comms_tower"]:
+        w(f"{D}/loot_tables/blocks/{b}.json", saque_proprio(b))
+    w(f"{D}/loot_tables/blocks/meteorite_ore.json", saque_minerio("meteorite_ore", "meteorite_fragment", 1, 2))
+    w(f"{D}/loot_tables/chests/supply_drop.json", {"type": "minecraft:chest", "pools": [
+        {"rolls": {"type": "minecraft:uniform", "min": 5, "max": 8}, "bonus_rolls": 0, "entries": [
+            {"type": "minecraft:item", "name": M + "space_ration", "weight": 16, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 3, "max": 8}}]},
+            {"type": "minecraft:item", "name": M + "ice_shard", "weight": 14, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 8, "max": 24}}]},
+            {"type": "minecraft:item", "name": M + "aluminum_ingot", "weight": 12, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 6, "max": 16}}]},
+            {"type": "minecraft:item", "name": M + "silicon", "weight": 10, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 4, "max": 10}}]},
+            {"type": "minecraft:item", "name": M + "titanium_ingot", "weight": 6, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 2, "max": 6}}]},
+            {"type": "minecraft:item", "name": M + "helium3_crystal", "weight": 6, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 4}}]},
+            {"type": "minecraft:item", "name": "minecraft:potato", "weight": 8, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 4, "max": 12}}]},
+            {"type": "minecraft:item", "name": "minecraft:oak_sapling", "weight": 5, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 2, "max": 4}}]},
+            {"type": "minecraft:item", "name": M + "o2_tank_module", "weight": 2},
+            {"type": "minecraft:item", "name": M + "night_vision_module", "weight": 2},
+            {"type": "minecraft:item", "name": M + "servo_module", "weight": 2},
+            {"type": "minecraft:item", "name": M + "battery", "weight": 3},
+            {"type": "minecraft:item", "name": M + "solar_array", "weight": 2}]}]})
+
+    t = f"{RES}/data/minecraft/tags/blocks/mineable/pickaxe.json"
+    d = ler(t)
+    for b in ["solar_array", "comms_tower", "meteorite_ore"]:
+        if M + b not in d["values"]:
+            d["values"].append(M + b)
+    w(t, d)
+    t = f"{RES}/data/minecraft/tags/blocks/needs_iron_tool.json"
+    d = ler(t)
+    if M + "meteorite_ore" not in d["values"]:
+        d["values"].append(M + "meteorite_ore")
+    w(t, d)
+
+    shaped("solar_array", ["PPP", "TCT", " R "], {"P": "solar_panel", "T": "titanium_ingot", "C": "cable", "R": "aluminum_rod"}, "solar_array", 1, "building")
+    shaped("comms_tower", ["SMS", "RCR", "TBT"], {"S": "silicon", "M": "meteorite_fragment", "R": "aluminum_rod", "C": "cable",
+                                                  "T": "titanium_ingot", "B": "battery"}, "comms_tower", 1, "building")
+    shaped("ore_scanner", ["GMG", "SAS", "ACA"], {"G": "habitat_glass", "M": "meteorite_fragment", "S": "silicon",
+                                                  "A": "aluminum_ingot", "C": "cable"}, "ore_scanner", 1, "equipment")
+    shaped("jetpack_module", ["MHM", "TOT", "N N"], {"M": "meteorite_fragment", "H": "helium3_crystal", "T": "titanium_ingot",
+                                                    "O": "oxygen_tank", "N": "niobium_ingot"}, "jetpack_module")
+
+    pt = ler(f"{A}/lang/pt_br.json")
+    en = ler(f"{A}/lang/en_us.json")
+    novos = {
+        "block.lunarminers.solar_array": ("Grande Painel Solar", "Large Solar Array"),
+        "block.lunarminers.comms_tower": ("Torre de Comunicação", "Comms Tower"),
+        "block.lunarminers.meteorite_ore": ("Minério de Meteorito", "Meteorite Ore"),
+        "item.lunarminers.ore_scanner": ("Scanner de Minérios", "Ore Scanner"),
+        "item.lunarminers.meteorite_fragment": ("Fragmento de Meteorito", "Meteorite Fragment"),
+        "item.lunarminers.jetpack_module": ("Módulo: Jetpack", "Module: Jetpack"),
+        "tooltip.lunarminers.module.jetpack": ("Suporte de vida: segure PULAR no ar para voar (gasta O₂)", "Life support: hold JUMP in the air to fly (uses O₂)"),
+        "tooltip.lunarminers.scanner": ("Clique para varrer 24 blocos em volta. Repare com silício na bigorna.", "Click to scan 24 blocks around. Repair with silicon on an anvil."),
+        "entity.lunarminers.impact": ("Objeto em queda", "Falling object"),
+        "message.lunarminers.scanner_title": ("── Varredura (raio %s) ──", "── Scan (radius %s) ──"),
+        "message.lunarminers.scanner_none": ("Nenhum minério por perto", "No ores nearby"),
+        "message.lunarminers.scanner_line": ("%s: %s — mais perto a %s blocos, %s, altura %s", "%s: %s — nearest %s blocks, %s, height %s"),
+        "direction.lunarminers.n": ("norte", "north"), "direction.lunarminers.ne": ("nordeste", "northeast"),
+        "direction.lunarminers.e": ("leste", "east"), "direction.lunarminers.se": ("sudeste", "southeast"),
+        "direction.lunarminers.s": ("sul", "south"), "direction.lunarminers.sw": ("sudoeste", "southwest"),
+        "direction.lunarminers.w": ("oeste", "west"), "direction.lunarminers.nw": ("noroeste", "northwest"),
+        "direction.lunarminers.here": ("aqui", "here"),
+        "message.lunarminers.tower_sent": ("Pedido enviado à Terra! Cápsula de suprimentos a caminho (%s FE gastos)", "Request sent to Earth! Supply capsule incoming (%s FE used)"),
+        "message.lunarminers.tower_no_energy": ("Energia insuficiente: a chamada precisa de %s FE", "Not enough power: a call needs %s FE"),
+        "message.lunarminers.tower_wait": ("Aguardando nova janela de comunicação: %2$s s", "Waiting for the next comms window: %2$s s"),
+        "message.lunarminers.tower_status": ("Torre: %s — próxima chamada em %s s (agache + clique)", "Tower: %s — next call in %s s (sneak + click)"),
+        "event.lunarminers.meteor_start": ("☄ ALERTA: chuva de meteoros! Fique dentro da base ou desvie das rochas em chamas. Elas deixam minério de meteorito.", "☄ ALERT: meteor shower! Stay inside the base or dodge the burning rocks. They leave meteorite ore behind."),
+        "event.lunarminers.meteor_end": ("A chuva de meteoros passou. Procure as crateras novas!", "The meteor shower is over. Look for the new craters!"),
+        "event.lunarminers.storm_warning": ("☀ AVISO DA TERRA: tempestade solar em 30 segundos! Procure abrigo com teto.", "☀ EARTH WARNING: solar storm in 30 seconds! Find shelter with a roof."),
+        "event.lunarminers.storm_start": ("☀ TEMPESTADE SOLAR! Radiação a céu aberto. Os painéis solares estão gerando 3x.", "☀ SOLAR STORM! Radiation under the open sky. Solar panels are generating 3x."),
+        "event.lunarminers.storm_exposed": ("Radiação! Procure abrigo com teto", "Radiation! Get under a roof"),
+        "event.lunarminers.storm_end": ("A tempestade solar terminou. É seguro sair.", "The solar storm is over. It is safe to go out."),
+    }
+    for k, (a_, b_) in novos.items():
+        pt[k] = a_
+        en[k] = b_
+    w(f"{A}/lang/pt_br.json", pt)
+    w(f"{A}/lang/en_us.json", en)
+
+
 if __name__ == "__main__":
     modelos()
     saques()
@@ -691,4 +815,5 @@ if __name__ == "__main__":
     geracao()
     nomes()
     dados_05()
+    dados_06()
     print("dados gerados")

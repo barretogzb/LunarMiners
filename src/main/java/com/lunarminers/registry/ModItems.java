@@ -73,6 +73,12 @@ public final class ModItems {
     public static final RegistryObject<Item> NIGHT_VISION_MODULE = modulo(ModuleItem.Tipo.VISOR);
     public static final RegistryObject<Item> SERVO_MODULE = modulo(ModuleItem.Tipo.SERVO);
     public static final RegistryObject<Item> THRUSTER_MODULE = modulo(ModuleItem.Tipo.PROPULSOR);
+    public static final RegistryObject<Item> JETPACK_MODULE = modulo(ModuleItem.Tipo.JETPACK);
+
+    // ---------- Equipamentos ----------
+    public static final RegistryObject<Item> ORE_SCANNER = ITEMS.register("ore_scanner",
+            () -> new com.lunarminers.item.ScannerItem(new Item.Properties().durability(64)));
+    public static final RegistryObject<Item> METEORITE_FRAGMENT = simples("meteorite_fragment");
 
     // ---------- Veículos, comida e cama ----------
     public static final RegistryObject<Item> ROVER_KIT = ITEMS.register("rover_kit",

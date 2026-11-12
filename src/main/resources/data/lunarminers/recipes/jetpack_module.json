@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "MHM",
+    "TOT",
+    "N N"
+  ],
+  "key": {
+    "M": {
+      "item": "lunarminers:meteorite_fragment"
+    },
+    "H": {
+      "item": "lunarminers:helium3_crystal"
+    },
+    "T": {
+      "item": "lunarminers:titanium_ingot"
+    },
+    "O": {
+      "item": "lunarminers:oxygen_tank"
+    },
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    }
+  },
+  "result": {
+    "item": "lunarminers:jetpack_module",
+    "count": 1
+  }
+}

@@ -14,7 +14,12 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.resources.ResourceLocation;
 
-/** Modelo do rover: chassi baixo, cabine com vidro, 6 rodas, teto solar e antena. */
+/**
+ * Rover lunar no estilo do LRV das missões Apollo, em tamanho grande:
+ * plataforma larga, 6 rodas altas, dois assentos abertos (o astronauta aparece inteiro),
+ * painel de controle, santantônio com teto de painéis solares, bagageiro e antena parabólica.
+ * Unidades em pixels (16 = 1 bloco), y para baixo, chão em y=24, frente em -Z.
+ */
 public class RoverModel extends EntityModel<RoverEntity> {
     public static final ModelLayerLocation LAYER =
             new ModelLayerLocation(new ResourceLocation(LunarMiners.MOD_ID, "rover"), "main");
@@ -33,38 +38,43 @@ public class RoverModel extends EntityModel<RoverEntity> {
     public static LayerDefinition criarCamada() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition r = mesh.getRoot();
-        // chassi (frente do rover = -Z no modelo)
         r.addOrReplaceChild("chassi", CubeListBuilder.create().texOffs(0, 0)
-                .addBox(-11, 14, -17, 22, 4, 34), PartPose.ZERO);
-        r.addOrReplaceChild("para_choque", CubeListBuilder.create().texOffs(0, 40)
-                .addBox(-10, 15, -19, 20, 3, 2), PartPose.ZERO);
-        // cabine
-        r.addOrReplaceChild("cabine", CubeListBuilder.create().texOffs(0, 46)
-                .addBox(-9, 4, -9, 18, 10, 14), PartPose.ZERO);
-        r.addOrReplaceChild("vidro", CubeListBuilder.create().texOffs(64, 46)
-                .addBox(-8, 5, -10, 16, 7, 1), PartPose.ZERO);
-        // teto solar
-        r.addOrReplaceChild("teto_solar", CubeListBuilder.create().texOffs(0, 72)
-                .addBox(-10, 2, -11, 20, 2, 26), PartPose.ZERO);
-        // compartimento de carga atrás
-        r.addOrReplaceChild("carga", CubeListBuilder.create().texOffs(0, 101)
-                .addBox(-8, 7, 6, 16, 7, 10), PartPose.ZERO);
-        // antena
-        r.addOrReplaceChild("antena", CubeListBuilder.create().texOffs(114, 0)
-                .addBox(7, -8, 10, 1, 10, 1)
-                .texOffs(112, 40).addBox(5.5F, -10, 8.5F, 4, 2, 4), PartPose.ZERO);
-        // rodas (giram no eixo X)
-        float[] zs = {-12, 0, 12};
+                .addBox(-18, 8, -32, 36, 4, 64), PartPose.ZERO);
+        r.addOrReplaceChild("para_choque", CubeListBuilder.create().texOffs(0, 70)
+                .addBox(-16, 9, -34, 32, 3, 2), PartPose.ZERO);
+        r.addOrReplaceChild("assentos", CubeListBuilder.create()
+                .texOffs(0, 80).addBox(-15, 2, -4, 12, 6, 12)
+                .texOffs(0, 80).addBox(3, 2, -4, 12, 6, 12)
+                .texOffs(50, 80).addBox(-15, -12, 8, 12, 14, 2)
+                .texOffs(50, 80).addBox(3, -12, 8, 12, 14, 2), PartPose.ZERO);
+        r.addOrReplaceChild("painel", CubeListBuilder.create().texOffs(0, 100)
+                .addBox(-8, -8, -20, 16, 16, 4), PartPose.ZERO);
+        r.addOrReplaceChild("colunas", CubeListBuilder.create()
+                .texOffs(80, 80).addBox(-18, -28, -17, 2, 36, 2)
+                .texOffs(80, 80).addBox(16, -28, -17, 2, 36, 2)
+                .texOffs(80, 80).addBox(-18, -28, 17, 2, 36, 2)
+                .texOffs(80, 80).addBox(16, -28, 17, 2, 36, 2), PartPose.ZERO);
+        r.addOrReplaceChild("teto_solar", CubeListBuilder.create().texOffs(0, 124)
+                .addBox(-20, -30, -20, 40, 2, 42), PartPose.ZERO);
+        r.addOrReplaceChild("bagageiro", CubeListBuilder.create().texOffs(0, 170)
+                .addBox(-16, 0, 18, 32, 8, 12), PartPose.ZERO);
+        r.addOrReplaceChild("antena", CubeListBuilder.create()
+                .texOffs(200, 0).addBox(14, -46, 26, 2, 54, 2)
+                .texOffs(204, 60).addBox(9, -48, 21, 12, 1, 12), PartPose.ZERO);
+        r.addOrReplaceChild("farois", CubeListBuilder.create()
+                .texOffs(210, 80).addBox(-14, 4, -34, 6, 4, 2)
+                .texOffs(210, 80).addBox(8, 4, -34, 6, 4, 2), PartPose.ZERO);
+        float[] zs = {-24, 0, 24};
         for (int i = 0; i < 3; i++) {
             for (int lado = 0; lado < 2; lado++) {
-                float x = lado == 0 ? -13 : 13;
-                r.addOrReplaceChild(RODAS[i * 2 + lado], CubeListBuilder.create().texOffs(96, 60)
-                        .addBox(-2.5F, -4, -4, 5, 8, 8)
-                        .texOffs(96, 76).addBox(-2.5F, -3, -5, 5, 6, 10)
-                        .texOffs(96, 92).addBox(-2.5F, -5, -3, 5, 10, 6), PartPose.offset(x, 19, zs[i]));
+                float x = lado == 0 ? -22 : 22;
+                r.addOrReplaceChild(RODAS[i * 2 + lado], CubeListBuilder.create()
+                        .texOffs(100, 190).addBox(-4, -9, -6, 8, 18, 12)
+                        .texOffs(140, 190).addBox(-4, -6, -9, 8, 12, 18)
+                        .texOffs(192, 190).addBox(-4, -8, -8, 8, 16, 16), PartPose.offset(x, 15, zs[i]));
             }
         }
-        return LayerDefinition.create(mesh, 128, 128);
+        return LayerDefinition.create(mesh, 256, 256);
     }
 
     @Override

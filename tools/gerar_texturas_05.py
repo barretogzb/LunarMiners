@@ -241,7 +241,7 @@ def main():
     salvar(icone_bastao(), "item/light_stick.png")
     salvar(icone_rover(), "item/rover_kit.png")
     salvar(icone_racao(), "item/space_ration.png")
-    salvar(rover(), "entity/rover.png")
+    # o rover grande da 0.6 fica em gerar_texturas_06.py
     print("texturas 0.5 geradas")
 
 

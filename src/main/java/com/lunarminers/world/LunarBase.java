@@ -156,17 +156,33 @@ public final class LunarBase {
      */
     private static void redeEletrica(Construtor b, BlockPos c) {
         BlockState cabo = ModBlocks.CABLE.get().defaultBlockState();
-        BlockState painel = ModBlocks.SOLAR_PANEL.get().defaultBlockState();
-        // campos solares 6x3 com cabos por baixo
+        // campos de Grandes Painéis Solares (3x3 cada), grade de cabos enterrada e um cabo subindo em cada mastro
+        BlockState grande = ModBlocks.SOLAR_ARRAY.get().defaultBlockState();
         for (int lado : new int[]{1, -1}) {
-            for (int i = 0; i < 6; i++) {
-                for (int j = 0; j < 3; j++) {
-                    int x = lado > 0 ? 15 + i : -20 + i;
-                    b.set(c.offset(x, -1, 15 + j), cabo);
-                    b.set(c.offset(x, 0, 15 + j), painel);
+            int x0 = lado > 0 ? 15 : -21;
+            for (int x = x0; x <= x0 + 6; x++) {
+                for (int z = 15; z <= 18; z++) {
+                    b.set(c.offset(x, -2, z), cabo);
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 2; j++) {
+                    BlockPos m = c.offset(x0 + i * 3, 0, 15 + j * 3);
+                    b.set(m.below(), cabo);
+                    b.set(m, grande);
                 }
             }
         }
+        // torre de comunicação ao lado da plataforma de pouso
+        BlockPos torre = c.offset(10, 0, R_CENTRAL + 22);
+        for (int x = 10; x <= 17; x++) {
+            b.set(c.offset(x, -2, R_CENTRAL + 22), cabo);
+        }
+        for (int z = 18; z <= R_CENTRAL + 22; z++) {
+            b.set(c.offset(17, -2, z), cabo);
+        }
+        b.set(torre.below(), cabo);
+        b.set(torre, ModBlocks.COMMS_TOWER.get().defaultBlockState());
         // troncos enterrados
         for (int x = -30; x <= 30; x++) {
             b.set(c.offset(x, -2, 0), cabo);
@@ -320,6 +336,7 @@ public final class LunarBase {
                 new ItemStack(ModItems.SPACE_SUIT_LEGGINGS.get()),
                 new ItemStack(ModItems.SPACE_SUIT_BOOTS.get()),
                 new ItemStack(ModItems.ALUMINUM_PICKAXE.get()),
+                new ItemStack(ModItems.ORE_SCANNER.get()),
                 new ItemStack(ModItems.ALUMINUM_SHOVEL.get()),
                 new ItemStack(ModItems.ALUMINUM_SWORD.get()),
                 new ItemStack(ModItems.ALUMINUM_AXE.get()),

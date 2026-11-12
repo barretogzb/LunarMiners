@@ -57,7 +57,8 @@ public final class LunarEvents {
         if (!isMoon(event.getEntity().level())) {
             return;
         }
-        if (event.getEntity() instanceof Player player && OxygenSystem.modulos(player, ModuleItem.Tipo.PROPULSOR) > 0) {
+        if (event.getEntity() instanceof Player player && (OxygenSystem.modulos(player, ModuleItem.Tipo.PROPULSOR) > 0
+                || OxygenSystem.modulos(player, ModuleItem.Tipo.JETPACK) > 0)) {
             event.setCanceled(true);
             return;
         }
@@ -102,6 +103,7 @@ public final class LunarEvents {
         if (level.getGameTime() % 100 == 0 && (level.isRaining() || level.isThundering())) {
             level.setWeatherParameters(24000, 0, false, false);
         }
+        com.lunarminers.world.EventosLunares.get(level).tick(level);
     }
 
     @SubscribeEvent
@@ -114,6 +116,29 @@ public final class LunarEvents {
         if (event.getEntity() instanceof ServerPlayer player) {
             LunarBase.welcome(player);
         }
+    }
+
+    /** Comandos de teste: /lunar meteoros | tempestade | oxigenio (precisa de cheats/op). */
+    @SubscribeEvent
+    public static void onCommands(net.minecraftforge.event.RegisterCommandsEvent event) {
+        event.getDispatcher().register(net.minecraft.commands.Commands.literal("lunar")
+                .requires(s -> s.hasPermission(2))
+                .then(net.minecraft.commands.Commands.literal("meteoros").executes(ctx -> {
+                    ServerLevel l = ctx.getSource().getServer().overworld();
+                    com.lunarminers.world.EventosLunares.get(l).iniciarChuva(l);
+                    return 1;
+                }))
+                .then(net.minecraft.commands.Commands.literal("tempestade").executes(ctx -> {
+                    ServerLevel l = ctx.getSource().getServer().overworld();
+                    com.lunarminers.world.EventosLunares.get(l).iniciarTempestade(l);
+                    return 1;
+                }))
+                .then(net.minecraft.commands.Commands.literal("oxigenio").executes(ctx -> {
+                    if (ctx.getSource().getEntity() instanceof ServerPlayer p) {
+                        OxygenSystem.encher(p);
+                    }
+                    return 1;
+                })));
     }
 
     private LunarEvents() {}

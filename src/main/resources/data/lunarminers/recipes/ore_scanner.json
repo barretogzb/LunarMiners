@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "GMG",
+    "SAS",
+    "ACA"
+  ],
+  "key": {
+    "G": {
+      "item": "lunarminers:habitat_glass"
+    },
+    "M": {
+      "item": "lunarminers:meteorite_fragment"
+    },
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "A": {
+      "item": "lunarminers:aluminum_ingot"
+    },
+    "C": {
+      "item": "lunarminers:cable"
+    }
+  },
+  "result": {
+    "item": "lunarminers:ore_scanner",
+    "count": 1
+  }
+}

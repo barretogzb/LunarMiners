@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SMS",
+    "RCR",
+    "TBT"
+  ],
+  "key": {
+    "S": {
+      "item": "lunarminers:silicon"
+    },
+    "M": {
+      "item": "lunarminers:meteorite_fragment"
+    },
+    "R": {
+      "item": "lunarminers:aluminum_rod"
+    },
+    "C": {
+      "item": "lunarminers:cable"
+    },
+    "T": {
+      "item": "lunarminers:titanium_ingot"
+    },
+    "B": {
+      "item": "lunarminers:battery"
+    }
+  },
+  "result": {
+    "item": "lunarminers:comms_tower",
+    "count": 1
+  }
+}

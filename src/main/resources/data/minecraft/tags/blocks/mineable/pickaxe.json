@@ -37,6 +37,9 @@
     "lunarminers:battery",
     "lunarminers:he3_generator",
     "lunarminers:electrolyzer",
-    "lunarminers:airlock_door"
+    "lunarminers:airlock_door",
+    "lunarminers:solar_array",
+    "lunarminers:comms_tower",
+    "lunarminers:meteorite_ore"
   ]
 }

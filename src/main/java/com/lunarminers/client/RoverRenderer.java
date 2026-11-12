@@ -19,7 +19,7 @@ public class RoverRenderer extends EntityRenderer<RoverEntity> {
     public RoverRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);
         this.modelo = new RoverModel(ctx.bakeLayer(RoverModel.LAYER));
-        this.shadowRadius = 1.2F;
+        this.shadowRadius = 2.0F;
     }
 
     @Override
