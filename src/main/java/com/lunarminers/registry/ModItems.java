@@ -2,6 +2,7 @@ package com.lunarminers.registry;
 
 import com.lunarminers.LunarMiners;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,6 +17,13 @@ public final class ModItems {
 
     public static final RegistryObject<Item> NIOBIUM_INGOT =
             ITEMS.register("niobium_ingot", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ALIEN_GOO =
+            ITEMS.register("alien_goo", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ALIEN_SPAWN_EGG =
+            ITEMS.register("alien_spawn_egg",
+                    () -> new ForgeSpawnEggItem(ModEntities.ALIEN, 0x9BD77A, 0x14171F, new Item.Properties()));
 
     private ModItems() {}
 }

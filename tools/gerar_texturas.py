@@ -277,18 +277,108 @@ def icone_pack():
     salvar(img, PACK, "pack.png")
 
 
+MAR = [(58, 60, 68), (68, 70, 78), (78, 80, 88), (90, 92, 100)]
+
+
+def alien_textura():
+    """Pele 64x64 no formato do zumbi: verde-acinzentado, olhos pretos enormes."""
+    img = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+    px = img.load()
+    rnd = random.Random(77)
+    pele = [(126, 180, 112), (140, 196, 124), (114, 166, 102), (152, 206, 136)]
+    traje = [(46, 54, 74), (56, 66, 88), (40, 46, 64)]
+    def preencher(x0, y0, x1, y1, paleta):
+        for y in range(y0, y1):
+            for x in range(x0, x1):
+                px[x, y] = paleta[rnd.randrange(len(paleta))] + (255,)
+    preencher(0, 0, 32, 16, pele)        # cabeça
+    preencher(16, 16, 40, 32, traje)     # tronco (traje escuro)
+    preencher(40, 16, 56, 32, pele)      # braços
+    preencher(0, 16, 16, 32, traje)      # pernas
+    # faixa luminosa no peito
+    for x in range(20, 28):
+        px[x, 22] = (90, 230, 210, 255)
+    # olhos grandes e amendoados ocupando a face (8..15, 8..15)
+    olho_esq = [(8, 10), (9, 10), (8, 11), (9, 11), (10, 11), (9, 12), (10, 12)]
+    olho_dir = [(14, 10), (15, 10), (13, 11), (14, 11), (15, 11), (13, 12), (14, 12)]
+    for x, y in olho_esq + olho_dir:
+        px[x, y] = (8, 8, 12, 255)
+    px[9, 10] = (80, 240, 220, 255)
+    px[14, 10] = (80, 240, 220, 255)
+    px[11, 14] = (84, 124, 74, 255)
+    px[12, 14] = (84, 124, 74, 255)
+    return img
+
+
+def gosma():
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    px = img.load()
+    rnd = random.Random(5)
+    verde = [(80, 200, 90), (110, 230, 110), (60, 160, 70), (170, 255, 160)]
+    for y in range(16):
+        for x in range(16):
+            d = math.hypot((x - 7.5) / 5.5, (y - 9) / 4.5) + rnd.uniform(-0.12, 0.12)
+            if d < 1.0:
+                px[x, y] = (verde[2] if d > 0.8 else verde[rnd.choice([0, 0, 1])]) + (235,)
+    for x, y in [(6, 6), (7, 6), (5, 7)]:
+        px[x, y] = verde[3] + (255,)
+    for x, y in [(7, 3), (7, 4), (8, 4)]:
+        px[x, y] = verde[1] + (230,)
+    return img
+
+
+def estrelas():
+    tam = 256
+    rnd = random.Random(31)
+    img = Image.new("RGBA", (tam, tam), (2, 3, 10, 255))
+    px = img.load()
+    for _ in range(260):
+        x, y = rnd.randrange(tam), rnd.randrange(tam)
+        b = rnd.choice([110, 140, 180, 220, 255])
+        tint = rnd.choice([(1, 1, 1), (0.8, 0.9, 1), (1, 0.92, 0.8)])
+        px[x, y] = tuple(int(b * t) for t in tint) + (255,)
+        if b == 255 and rnd.random() < 0.25:
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                px[(x + dx) % tam, (y + dy) % tam] = (110, 120, 150, 255)
+    return img
+
+
+def terra_ceu():
+    tam = 128
+    img = Image.new("RGBA", (tam, tam), (0, 0, 0, 0))
+    base = Image.new("RGB", (tam, tam), (0, 0, 0))
+    terra(base, tam // 2, tam // 2, tam // 2 - 8)
+    mask = Image.new("L", (tam, tam), 0)
+    ImageDraw.Draw(mask).ellipse([4, 4, tam - 5, tam - 5], fill=255)
+    img.paste(base, (0, 0), mask)
+    return img
+
+
 def main():
-    # Mod
+    # Mod: nióbio
     salvar(minerio(PEDRA, 11), MOD, "block/niobium_ore.png")
     salvar(minerio(ARDOSIA, 12), MOD, "block/deepslate_niobium_ore.png")
     salvar(bloco_metal(), MOD, "block/niobium_block.png")
     salvar(lingote(), MOD, "item/niobium_ingot.png")
     salvar(bruto(), MOD, "item/raw_niobium.png")
-    # Texture pack: pedras com cara de solo lunar
-    salvar(regolito(21), PACK_TEX, "block/stone.png")
-    salvar(pedregulho(REGOLITO, 22), PACK_TEX, "block/cobblestone.png")
-    salvar(base_pedra(BASALTO, 23), PACK_TEX, "block/deepslate.png")
-    salvar(regolito(24, crateras=False), PACK_TEX, "block/gravel.png")
+    # Mod: Lua
+    salvar(regolito(21), MOD, "block/moon_regolith.png")
+    salvar(suavizar(ruido(MAR, 25), MAR, 26), MOD, "block/moon_mare_regolith.png")
+    salvar(base_pedra(REGOLITO[:4], 27), MOD, "block/moon_rock.png")
+    salvar(pedregulho(REGOLITO, 22), MOD, "block/moon_cobblestone.png")
+    salvar(base_pedra(BASALTO, 23), MOD, "block/moon_deep_rock.png")
+    salvar(minerio(REGOLITO[:4], 28), MOD, "block/moon_niobium_ore.png")
+    ferro = base_pedra(REGOLITO[:4], 29)
+    fp = ferro.load()
+    for x, y in [(3, 4), (4, 4), (10, 3), (11, 4), (6, 9), (7, 9), (12, 11), (2, 12), (3, 13)]:
+        fp[x, y] = (216, 175, 147, 255)
+        fp[(x + 1) % 16, (y + 1) % 16] = (150, 106, 80, 255)
+    salvar(ferro, MOD, "block/moon_iron_ore.png")
+    salvar(alien_textura(), MOD, "entity/alien.png")
+    salvar(gosma(), MOD, "item/alien_goo.png")
+    salvar(estrelas(), MOD, "environment/stars.png")
+    salvar(terra_ceu(), MOD, "environment/earth.png")
+    # Texture pack: menu espacial
     panorama()
     icone_pack()
     print("texturas geradas")

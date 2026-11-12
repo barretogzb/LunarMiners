@@ -4,5 +4,18 @@
   "block.lunarminers.deepslate_niobium_ore": "Minério de Nióbio de Ardósia",
   "block.lunarminers.niobium_block": "Bloco de Nióbio",
   "item.lunarminers.raw_niobium": "Nióbio Bruto",
-  "item.lunarminers.niobium_ingot": "Lingote de Nióbio"
+  "item.lunarminers.niobium_ingot": "Lingote de Nióbio",
+  "block.lunarminers.moon_regolith": "Regolito Lunar",
+  "block.lunarminers.moon_mare_regolith": "Regolito de Mar Lunar",
+  "block.lunarminers.moon_rock": "Rocha Lunar",
+  "block.lunarminers.moon_cobblestone": "Pedregulho Lunar",
+  "block.lunarminers.moon_deep_rock": "Rocha Lunar Profunda",
+  "block.lunarminers.moon_niobium_ore": "Minério de Nióbio Lunar",
+  "block.lunarminers.moon_iron_ore": "Minério de Ferro Lunar",
+  "item.lunarminers.alien_goo": "Gosma Alienígena",
+  "item.lunarminers.alien_spawn_egg": "Ovo Gerador de Alienígena",
+  "entity.lunarminers.alien": "Alienígena",
+  "biome.lunarminers.lunar_highlands": "Planaltos Lunares",
+  "biome.lunarminers.lunar_maria": "Mares Lunares",
+  "biome.lunarminers.crater_fields": "Campos de Crateras"
 }

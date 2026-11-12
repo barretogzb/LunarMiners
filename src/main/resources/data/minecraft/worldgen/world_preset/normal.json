@@ -1,0 +1,127 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "lunarminers:moon",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "biomes": [
+            {
+              "biome": "lunarminers:lunar_maria",
+              "parameters": {
+                "temperature": [
+                  -1.0,
+                  1.0
+                ],
+                "humidity": [
+                  -1.0,
+                  1.0
+                ],
+                "continentalness": [
+                  -1.2,
+                  -0.19
+                ],
+                "erosion": [
+                  -1.0,
+                  1.0
+                ],
+                "weirdness": [
+                  -1.0,
+                  1.0
+                ],
+                "depth": [
+                  0.0,
+                  1.0
+                ],
+                "offset": 0.0
+              }
+            },
+            {
+              "biome": "lunarminers:lunar_highlands",
+              "parameters": {
+                "temperature": [
+                  -1.0,
+                  1.0
+                ],
+                "humidity": [
+                  -1.0,
+                  1.0
+                ],
+                "continentalness": [
+                  -0.19,
+                  1.0
+                ],
+                "erosion": [
+                  -1.0,
+                  0.05
+                ],
+                "weirdness": [
+                  -1.0,
+                  1.0
+                ],
+                "depth": [
+                  0.0,
+                  1.0
+                ],
+                "offset": 0.0
+              }
+            },
+            {
+              "biome": "lunarminers:crater_fields",
+              "parameters": {
+                "temperature": [
+                  -1.0,
+                  1.0
+                ],
+                "humidity": [
+                  -1.0,
+                  1.0
+                ],
+                "continentalness": [
+                  -0.19,
+                  1.0
+                ],
+                "erosion": [
+                  0.05,
+                  1.0
+                ],
+                "weirdness": [
+                  -1.0,
+                  1.0
+                ],
+                "depth": [
+                  0.0,
+                  1.0
+                ],
+                "offset": 0.0
+              }
+            }
+          ]
+        },
+        "settings": "lunarminers:moon"
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:the_end"
+        },
+        "settings": "minecraft:end"
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "minecraft:noise",
+        "biome_source": {
+          "type": "minecraft:multi_noise",
+          "preset": "minecraft:nether"
+        },
+        "settings": "minecraft:nether"
+      }
+    }
+  }
+}

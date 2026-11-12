@@ -26,6 +26,31 @@ jobs:
       - name: Compilar o mod
         run: gradle build --no-daemon --stacktrace
 
+      - name: Testar o mundo lunar num servidor
+        run: |
+          mkdir -p run
+          echo "eula=true" > run/eula.txt
+          printf "online-mode=false\nlevel-seed=lunarminers\n" > run/server.properties
+          gradle runServer --no-daemon < /dev/null > server.log 2>&1 &
+          PID=$!
+          OK=0
+          for i in $(seq 1 200); do
+            if grep -q 'Done (' server.log; then OK=1; break; fi
+            if ! kill -0 $PID 2>/dev/null; then break; fi
+            sleep 5
+          done
+          sleep 10
+          kill $PID 2>/dev/null || true
+          pkill -f runServer 2>/dev/null || true
+          pkill -f 'net.minecraftforge' 2>/dev/null || true
+          echo "===== Linhas importantes do servidor ====="
+          grep -nE 'LunarMiners|lunarminers|ERROR|Exception|Caused by|Failed|Done \(' server.log | grep -v 'Mixin' | head -150 || true
+          if [ "$OK" != "1" ]; then
+            echo "===== Final do log ====="
+            tail -150 server.log
+            exit 1
+          fi
+
       - name: Montar o modpack do Technic
         run: |
           MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)

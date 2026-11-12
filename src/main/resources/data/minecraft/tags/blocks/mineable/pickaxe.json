@@ -3,6 +3,11 @@
   "values": [
     "lunarminers:niobium_ore",
     "lunarminers:deepslate_niobium_ore",
-    "lunarminers:niobium_block"
+    "lunarminers:niobium_block",
+    "lunarminers:moon_rock",
+    "lunarminers:moon_cobblestone",
+    "lunarminers:moon_deep_rock",
+    "lunarminers:moon_niobium_ore",
+    "lunarminers:moon_iron_ore"
   ]
 }

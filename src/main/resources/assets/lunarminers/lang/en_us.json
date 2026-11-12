@@ -4,5 +4,18 @@
   "block.lunarminers.deepslate_niobium_ore": "Deepslate Niobium Ore",
   "block.lunarminers.niobium_block": "Block of Niobium",
   "item.lunarminers.raw_niobium": "Raw Niobium",
-  "item.lunarminers.niobium_ingot": "Niobium Ingot"
+  "item.lunarminers.niobium_ingot": "Niobium Ingot",
+  "block.lunarminers.moon_regolith": "Lunar Regolith",
+  "block.lunarminers.moon_mare_regolith": "Mare Regolith",
+  "block.lunarminers.moon_rock": "Moon Rock",
+  "block.lunarminers.moon_cobblestone": "Moon Cobblestone",
+  "block.lunarminers.moon_deep_rock": "Deep Moon Rock",
+  "block.lunarminers.moon_niobium_ore": "Lunar Niobium Ore",
+  "block.lunarminers.moon_iron_ore": "Lunar Iron Ore",
+  "item.lunarminers.alien_goo": "Alien Goo",
+  "item.lunarminers.alien_spawn_egg": "Alien Spawn Egg",
+  "entity.lunarminers.alien": "Alien",
+  "biome.lunarminers.lunar_highlands": "Lunar Highlands",
+  "biome.lunarminers.lunar_maria": "Lunar Maria",
+  "biome.lunarminers.crater_fields": "Crater Fields"
 }

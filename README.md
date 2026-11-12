@@ -3,11 +3,14 @@
 Mod de Minecraft (Forge 1.20.1) feito do zero: uma base brasileira na Lua, mineração, pesquisa,
 criação de vida, máquinas, veículos, armaduras, alienígenas e, no fim, a volta para a Terra.
 
-## Versão atual: 0.1
-- Nióbio: minério (pedra e ardósia), nióbio bruto, lingote e bloco
-- Geração do minério no subsolo (abaixo de Y 48)
-- Aba própria no modo criativo
-- Texture pack **LunarMiners Visual**: menu com panorama lunar e a Terra no céu, pedras com cara de solo lunar
+## Versão atual: 0.2 — "A Lua"
+- O mundo padrão agora é a Lua: terreno de regolito e rocha lunar, sem água, crateras, mares lunares escuros
+- Céu espacial: estrelas o tempo todo, o Sol e a Terra no céu, sem nuvens nem chuva
+- Gravidade baixa (pulos altos, quedas mais leves)
+- Alienígenas que atacam à noite e em cavernas (não queimam no sol)
+- Base Lunar Cruzeiro do Sul no ponto de nascimento, com estufa, bandeiras do Brasil e kit de sobrevivência
+- Minérios lunares: nióbio e ferro
+- Mundos criados antes da 0.2 continuam com o terreno antigo: crie um mundo novo
 
 ## Como cada atualização chega no Technic
 1. Cada envio para a `main` dispara o GitHub Actions, que compila o mod e monta o modpack.
