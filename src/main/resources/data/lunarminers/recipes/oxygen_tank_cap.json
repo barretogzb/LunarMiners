@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " N ",
+    "ITI"
+  ],
+  "key": {
+    "N": {
+      "item": "lunarminers:niobium_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "T": {
+      "item": "lunarminers:oxygen_tank"
+    }
+  },
+  "result": {
+    "item": "lunarminers:oxygen_tank_cap"
+  }
+}

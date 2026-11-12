@@ -17,5 +17,7 @@
   "entity.lunarminers.alien": "Alien",
   "biome.lunarminers.lunar_highlands": "Lunar Highlands",
   "biome.lunarminers.lunar_maria": "Lunar Maria",
-  "biome.lunarminers.crater_fields": "Crater Fields"
+  "biome.lunarminers.crater_fields": "Crater Fields",
+  "block.lunarminers.oxygen_tank": "Oxygen Tank",
+  "block.lunarminers.oxygen_tank_cap": "Oxygen Tank Valve"
 }

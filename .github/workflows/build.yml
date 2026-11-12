@@ -56,11 +56,10 @@ jobs:
           MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
           FORGE=$(grep '^forge_version=' gradle.properties | cut -d= -f2)
           VER=$(grep '^mod_version=' gradle.properties | cut -d= -f2)
-          mkdir -p pack/bin pack/mods pack/resourcepacks
+          mkdir -p pack/bin pack/mods
           curl -fsSL -o pack/bin/modpack.jar \
             "https://maven.minecraftforge.net/net/minecraftforge/forge/$MC-$FORGE/forge-$MC-$FORGE-installer.jar"
           cp "build/libs/lunarminers-$VER.jar" pack/mods/
-          (cd resourcepack && zip -qr ../pack/resourcepacks/LunarMiners-Visual.zip .)
           (cd pack && zip -qr ../LunarMiners-modpack.zip .)
           cp "build/libs/lunarminers-$VER.jar" .
           echo "VER=$VER" >> "$GITHUB_ENV"

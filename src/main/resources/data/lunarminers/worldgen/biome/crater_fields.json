@@ -47,7 +47,9 @@
       "lunarminers:crater_dense"
     ],
     [],
-    [],
+    [
+      "lunarminers:abandoned_site"
+    ],
     [],
     [
       "lunarminers:moon_iron_ore",

@@ -15,5 +15,9 @@ public final class ModFeatures {
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> CRATER =
             FEATURES.register("crater", () -> new CraterFeature(NoneFeatureConfiguration.CODEC));
 
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> ABANDONED_SITE =
+            FEATURES.register("abandoned_site",
+                    () -> new com.lunarminers.world.AbandonedSiteFeature(NoneFeatureConfiguration.CODEC));
+
     private ModFeatures() {}
 }

@@ -354,6 +354,49 @@ def terra_ceu():
     return img
 
 
+def tanque_lado(com_banda=True, seed=60):
+    img = Image.new("RGBA", (16, 16))
+    px = img.load()
+    rnd = random.Random(seed)
+    for y in range(16):
+        for x in range(16):
+            # sombreado cilíndrico: claro no meio, escuro nas bordas
+            t = 1 - abs(x - 7.5) / 8.5
+            v = int(150 + 95 * t) + rnd.randint(-3, 3)
+            px[x, y] = (v, min(255, v + 3), min(255, v + 10), 255)
+    if com_banda:
+        for y in (6, 7, 8):
+            for x in range(16):
+                t = 1 - abs(x - 7.5) / 8.5
+                px[x, y] = (int(25 + 30 * t), int(90 + 60 * t), int(170 + 70 * t), 255)
+        d = ImageDraw.Draw(img)
+        # "O2" em pixels na faixa clara de baixo
+        for x, y in [(5, 11), (6, 11), (4, 12), (7, 12), (5, 13), (6, 13), (9, 12), (10, 12), (10, 13), (9, 14), (10, 14)]:
+            px[x, y] = (30, 60, 110, 255)
+    for x in range(16):
+        px[x, 0] = (120, 126, 140, 255)
+        px[x, 15] = (120, 126, 140, 255)
+    return img
+
+
+def tanque_topo():
+    img = Image.new("RGBA", (16, 16), (150, 156, 170, 255))
+    d = ImageDraw.Draw(img)
+    d.ellipse([2, 2, 13, 13], fill=(200, 206, 218, 255), outline=(120, 126, 140, 255))
+    d.ellipse([6, 6, 9, 9], fill=(90, 96, 112, 255))
+    return img
+
+
+def valvula():
+    img = Image.new("RGBA", (16, 16), (60, 66, 82, 255))
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            if (x + y) % 5 == 0:
+                px[x, y] = (210, 60, 50, 255)
+    return img
+
+
 def main():
     # Mod: nióbio
     salvar(minerio(PEDRA, 11), MOD, "block/niobium_ore.png")
@@ -374,13 +417,15 @@ def main():
         fp[x, y] = (216, 175, 147, 255)
         fp[(x + 1) % 16, (y + 1) % 16] = (150, 106, 80, 255)
     salvar(ferro, MOD, "block/moon_iron_ore.png")
+    salvar(tanque_lado(), MOD, "block/oxygen_tank_side.png")
+    salvar(tanque_lado(com_banda=False, seed=61), MOD, "block/oxygen_tank_cap.png")
+    salvar(tanque_topo(), MOD, "block/oxygen_tank_end.png")
+    salvar(valvula(), MOD, "block/oxygen_valve.png")
     salvar(alien_textura(), MOD, "entity/alien.png")
     salvar(gosma(), MOD, "item/alien_goo.png")
     salvar(estrelas(), MOD, "environment/stars.png")
     salvar(terra_ceu(), MOD, "environment/earth.png")
-    # Texture pack: menu espacial
-    panorama()
-    icone_pack()
+    # (o panorama do menu agora fica em tools/gerar_panorama.py)
     print("texturas geradas")
 
 

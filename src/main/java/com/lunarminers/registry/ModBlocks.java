@@ -57,6 +57,15 @@ public final class ModBlocks {
     public static final RegistryObject<Block> NIOBIUM_BLOCK = register("niobium_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops()));
 
+    // Tanque de oxigênio: corpo cilíndrico (empilhável) e tampa com válvula
+    public static final RegistryObject<Block> OXYGEN_TANK = register("oxygen_tank",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> OXYGEN_TANK_CAP = register("oxygen_tank_cap",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()
+                    .requiresCorrectToolForDrops()));
+
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
         RegistryObject<T> registered = BLOCKS.register(name, block);
         ModItems.ITEMS.register(name, () -> new BlockItem(registered.get(), new Item.Properties()));

@@ -68,61 +68,87 @@ public final class LunarBase {
         BlockState air = Blocks.AIR.defaultBlockState();
         BlockState light = Blocks.SEA_LANTERN.defaultBlockState();
         int y = c.getY();
+        double r = R + 2.0; // raio da cúpula = 7
 
-        for (int dx = -R - 1; dx <= R + 1; dx++) {
-            for (int dz = -R - 1; dz <= R + 1; dz++) {
-                int x = c.getX() + dx;
-                int z = c.getZ() + dz;
-                boolean inside = Math.abs(dx) <= R && Math.abs(dz) <= R;
-                boolean edge = Math.abs(dx) == R || Math.abs(dz) == R;
-                boolean corner = Math.abs(dx) == R && Math.abs(dz) == R;
-
-                // limpa o espaço acima
-                for (int h = 0; h <= 6; h++) {
-                    level.setBlock(new BlockPos(x, y + h, z), air, FLAGS);
+        // 1) terreno: limpa tudo e faz a fundação circular (com folga para tanques e entrada)
+        for (int dx = -12; dx <= 12; dx++) {
+            for (int dz = -10; dz <= 12; dz++) {
+                double dist = Math.sqrt(dx * dx + dz * dz);
+                boolean area = dist <= r + 0.5 || (dx >= 8 && dx <= 12 && Math.abs(dz) <= 4)
+                        || (Math.abs(dx) <= 3 && dz > 0 && dz <= 11);
+                if (!area) {
+                    continue;
                 }
-                // fundação até encostar no chão
+                for (int h = 0; h <= 9; h++) {
+                    level.setBlock(c.offset(dx, h, dz), air, FLAGS);
+                }
                 for (int d = 1; d <= 24; d++) {
-                    BlockPos p = new BlockPos(x, y - d, z);
+                    BlockPos p = c.offset(dx, -d, dz);
                     if (d > 1 && !level.getBlockState(p).canBeReplaced()) {
                         break;
                     }
                     level.setBlock(p, d == 1 ? hull : rock, FLAGS);
                 }
-                if (!inside) {
-                    continue;
-                }
-                if (Math.abs(dx) == 3 && Math.abs(dz) == 3) {
-                    level.setBlock(new BlockPos(x, y - 1, z), light, FLAGS);
-                }
-                if (edge) {
-                    for (int h = 0; h <= 3; h++) {
-                        boolean window = !corner && (h == 1 || h == 2)
-                                && (Math.abs(dx) <= 3 || Math.abs(dz) <= 3);
-                        level.setBlock(new BlockPos(x, y + h, z), window ? glass : hull, FLAGS);
-                    }
-                }
-                level.setBlock(new BlockPos(x, y + 4, z), edge ? hull : glass, FLAGS);
             }
         }
 
-        // porta no lado sul
-        BlockPos door = c.offset(0, 0, R);
+        // 2) cúpula: casca de vidro com nervuras de nióbio (anel da base, meridianos e um anel no meio)
+        for (int dx = -R - 2; dx <= R + 2; dx++) {
+            for (int dz = -R - 2; dz <= R + 2; dz++) {
+                for (int h = 0; h <= R + 2; h++) {
+                    double dist = Math.sqrt(dx * dx + dz * dz + h * h);
+                    if (dist < r - 0.5 || dist > r + 0.5) {
+                        continue;
+                    }
+                    boolean nervura = h == 0 || h == 4 || dx == 0 || dz == 0 || Math.abs(dx) == Math.abs(dz);
+                    level.setBlock(c.offset(dx, h, dz), nervura ? hull : glass, FLAGS);
+                }
+                double piso = Math.sqrt(dx * dx + dz * dz);
+                if (Math.abs(piso - 4.0) < 0.5 && (dx == 0 || dz == 0 || Math.abs(dx) == Math.abs(dz))) {
+                    level.setBlock(c.offset(dx, -1, dz), light, FLAGS);
+                }
+            }
+        }
+        level.setBlock(c.offset(0, (int) r, 0), light, FLAGS);
+
+        // 3) túnel de entrada (eclusa) no lado sul
+        for (int dz = 5; dz <= 10; dz++) {
+            for (int dx = -2; dx <= 2; dx++) {
+                for (int h = 0; h <= 3; h++) {
+                    boolean parede = Math.abs(dx) == 2 || h == 3;
+                    boolean janela = parede && h == 1 && Math.abs(dx) == 2 && (dz == 7 || dz == 8);
+                    level.setBlock(c.offset(dx, h, dz), parede ? (janela ? glass : hull) : air, FLAGS);
+                }
+            }
+        }
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int h = 0; h <= 2; h++) {
+                level.setBlock(c.offset(dx, h, 10), hull, FLAGS);
+            }
+        }
+        level.setBlock(c.offset(0, 2, 9), light, FLAGS);
         BlockState doorLower = Blocks.OAK_DOOR.defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)
                 .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
+        BlockPos door = c.offset(0, 0, 10);
         level.setBlock(door, doorLower, FLAGS);
         level.setBlock(door.above(), doorLower.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), FLAGS);
-        level.setBlock(door.offset(0, -1, 1), hull, FLAGS);
+        BlockPos innerDoor = c.offset(0, 0, 6);
+        level.setBlock(innerDoor, doorLower, FLAGS);
+        level.setBlock(innerDoor.above(), doorLower.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), FLAGS);
+        for (int dx = -1; dx <= 1; dx += 2) {
+            for (int h = 0; h <= 2; h++) {
+                level.setBlock(c.offset(dx, h, 6), hull, FLAGS);
+            }
+        }
 
-        // móveis
-        level.setBlock(c.offset(-4, 0, -4), Blocks.CRAFTING_TABLE.defaultBlockState(), FLAGS);
-        level.setBlock(c.offset(-3, 0, -4), Blocks.FURNACE.defaultBlockState()
+        // 4) móveis encostados na parede norte
+        level.setBlock(c.offset(-3, 0, -4), Blocks.CRAFTING_TABLE.defaultBlockState(), FLAGS);
+        level.setBlock(c.offset(-2, 0, -5), Blocks.FURNACE.defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH), FLAGS);
-        level.setBlock(c.offset(-2, 0, -4), Blocks.BLAST_FURNACE.defaultBlockState()
+        level.setBlock(c.offset(-1, 0, -5), Blocks.BLAST_FURNACE.defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH), FLAGS);
-
-        BlockPos chestPos = c.offset(3, 0, -4);
+        BlockPos chestPos = c.offset(2, 0, -5);
         level.setBlock(chestPos, Blocks.CHEST.defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH), FLAGS);
         if (level.getBlockEntity(chestPos) instanceof ChestBlockEntity chest) {
@@ -132,50 +158,35 @@ public final class LunarBase {
             }
             chest.setChanged();
         }
+        Bandeiras.BRASIL.colocar(level, c.offset(0, 0, -5), 0);
 
         BlockState bed = Blocks.GREEN_BED.defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH);
         level.setBlock(c.offset(4, 0, 1), bed.setValue(BlockStateProperties.BED_PART, BedPart.FOOT), FLAGS);
         level.setBlock(c.offset(4, 0, 0), bed.setValue(BlockStateProperties.BED_PART, BedPart.HEAD), FLAGS);
 
-        // estufa: canteiro de terra com água no meio
-        for (int dx = -4; dx <= -2; dx++) {
-            for (int dz = 1; dz <= 3; dz++) {
-                BlockPos p = c.offset(dx, -1, dz);
-                level.setBlock(p, dx == -3 && dz == 2 ? Blocks.WATER.defaultBlockState()
-                        : Blocks.FARMLAND.defaultBlockState(), FLAGS);
+        // 5) estufa: canteiro com água no meio, do lado oeste
+        for (int dx = -5; dx <= -3; dx++) {
+            for (int dz = 0; dz <= 2; dz++) {
+                level.setBlock(c.offset(dx, -1, dz), dx == -4 && dz == 1
+                        ? Blocks.WATER.defaultBlockState() : Blocks.FARMLAND.defaultBlockState(), FLAGS);
             }
         }
 
-        // bandeiras do Brasil
-        placeFlag(level, c.offset(0, 0, -4), 0);
-        placeFlag(level, c.offset(-2, 0, R + 1), 8);
-        placeFlag(level, c.offset(2, 0, R + 1), 8);
-        level.setBlock(c.offset(-2, -1, R + 1), hull, FLAGS);
-        level.setBlock(c.offset(2, -1, R + 1), hull, FLAGS);
-    }
-
-    private static void placeFlag(ServerLevel level, BlockPos pos, int rotation) {
-        BlockState state = Blocks.GREEN_BANNER.defaultBlockState()
-                .setValue(BlockStateProperties.ROTATION_16, rotation);
-        level.setBlock(pos, state, FLAGS);
-        if (level.getBlockEntity(pos) instanceof BannerBlockEntity banner) {
-            CompoundTag tag = banner.saveWithoutMetadata();
-            ListTag patterns = new ListTag();
-            patterns.add(pattern("mr", DyeColor.YELLOW));
-            patterns.add(pattern("mc", DyeColor.BLUE));
-            tag.put("Patterns", patterns);
-            banner.load(tag);
-            banner.setChanged();
-            level.sendBlockUpdated(pos, state, state, 3);
+        // 6) tanques de oxigênio do lado leste, numa plataforma
+        for (int dz = -2; dz <= 2; dz += 2) {
+            BlockPos t = c.offset(10, 0, dz);
+            level.setBlock(t, ModBlocks.OXYGEN_TANK.get().defaultBlockState(), FLAGS);
+            level.setBlock(t.above(), ModBlocks.OXYGEN_TANK.get().defaultBlockState(), FLAGS);
+            level.setBlock(t.above(2), ModBlocks.OXYGEN_TANK_CAP.get().defaultBlockState(), FLAGS);
         }
-    }
+        for (int dx = 8; dx <= 9; dx++) {
+            level.setBlock(c.offset(dx, 1, 0), Blocks.IRON_BARS.defaultBlockState(), FLAGS);
+        }
 
-    private static CompoundTag pattern(String code, DyeColor color) {
-        CompoundTag tag = new CompoundTag();
-        tag.putString("Pattern", code);
-        tag.putInt("Color", color.getId());
-        return tag;
+        // 7) bandeiras na entrada
+        Bandeiras.BRASIL.colocar(level, c.offset(-3, 0, 11), 8);
+        Bandeiras.BRASIL.colocar(level, c.offset(3, 0, 11), 8);
     }
 
     private static List<ItemStack> starterKit() {

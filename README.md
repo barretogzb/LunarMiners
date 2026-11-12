@@ -3,14 +3,18 @@
 Mod de Minecraft (Forge 1.20.1) feito do zero: uma base brasileira na Lua, mineração, pesquisa,
 criação de vida, máquinas, veículos, armaduras, alienígenas e, no fim, a volta para a Terra.
 
-## Versão atual: 0.2 — "A Lua"
-- O mundo padrão agora é a Lua: terreno de regolito e rocha lunar, sem água, crateras, mares lunares escuros
-- Céu espacial: estrelas o tempo todo, o Sol e a Terra no céu, sem nuvens nem chuva
-- Gravidade baixa (pulos altos, quedas mais leves)
-- Alienígenas que atacam à noite e em cavernas (não queimam no sol)
-- Base Lunar Cruzeiro do Sul no ponto de nascimento, com estufa, bandeiras do Brasil e kit de sobrevivência
-- Minérios lunares: nióbio e ferro
-- Mundos criados antes da 0.2 continuam com o terreno antigo: crie um mundo novo
+## Versão atual: 0.3 — "Visual Lunar"
+- Tela inicial nova: logo LUNARMINERS, "Missão Lunar Brasileira" e frases em português
+- Panorama do menu renderizado: base em cúpula, tanques de oxigênio, bandeira do Brasil e a Terra no céu
+- Menus, botões, barra de itens e todos os inventários no tema aço lunar
+- Blocos comuns retexturizados: bancada de montagem, fornalhas, caixa de carga, vidro de habitat, porta de eclusa, lâmpadas LED
+- Base Cruzeiro do Sul refeita como cúpula de vidro com nervuras, eclusa de entrada e tanques de oxigênio
+- Locais abandonados de outras missões, com bandeiras de vários países e baús de suprimentos
+- Tudo vem dentro do mod (não precisa ativar texture pack)
+
+## Versões anteriores
+- 0.2 "A Lua": mundo lunar, céu espacial, gravidade baixa, alienígenas e base inicial
+- 0.1: nióbio e build automático para o Technic
 
 ## Como cada atualização chega no Technic
 1. Cada envio para a `main` dispara o GitHub Actions, que compila o mod e monta o modpack.
@@ -20,7 +24,9 @@ criação de vida, máquinas, veículos, armaduras, alienígenas e, no fim, a vo
    (ex.: `0.1.0.1`) e clique em **Update Version**.
 4. Reabra o Technic Launcher para ele baixar a versão nova.
 
-O texture pack vem em `resourcepacks/`. Ative uma vez em **Opções → Pacotes de recursos**.
 
 ## Texturas
-As texturas são geradas por código em `tools/gerar_texturas.py` (`python3 tools/gerar_texturas.py`).
+As texturas são geradas por código:
+- `tools/gerar_texturas.py`: blocos e itens do mod
+- `tools/gerar_panorama.py`: panorama da tela inicial
+- `tools/gerar_visual.py <assets/minecraft original>`: logo, menus, inventários e blocos comuns
