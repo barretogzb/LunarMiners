@@ -1,0 +1,55 @@
+name: Compilar LunarMiners
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.8'
+
+      - name: Compilar o mod
+        run: gradle build --no-daemon --stacktrace
+
+      - name: Montar o modpack do Technic
+        run: |
+          MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
+          FORGE=$(grep '^forge_version=' gradle.properties | cut -d= -f2)
+          VER=$(grep '^mod_version=' gradle.properties | cut -d= -f2)
+          mkdir -p pack/bin pack/mods pack/resourcepacks
+          curl -fsSL -o pack/bin/modpack.jar \
+            "https://maven.minecraftforge.net/net/minecraftforge/forge/$MC-$FORGE/forge-$MC-$FORGE-installer.jar"
+          cp "build/libs/lunarminers-$VER.jar" pack/mods/
+          (cd resourcepack && zip -qr ../pack/resourcepacks/LunarMiners-Visual.zip .)
+          (cd pack && zip -qr ../LunarMiners-modpack.zip .)
+          cp "build/libs/lunarminers-$VER.jar" .
+          echo "VER=$VER" >> "$GITHUB_ENV"
+          unzip -l LunarMiners-modpack.zip
+
+      - name: Publicar release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VER }}-build${{ github.run_number }}
+          name: LunarMiners ${{ env.VER }} (build ${{ github.run_number }})
+          body: |
+            Versão para colocar no Technic: **${{ env.VER }}.${{ github.run_number }}**
+            Link fixo do modpack: https://github.com/${{ github.repository }}/releases/latest/download/LunarMiners-modpack.zip
+          make_latest: true
+          files: |
+            LunarMiners-modpack.zip
+            lunarminers-${{ env.VER }}.jar
